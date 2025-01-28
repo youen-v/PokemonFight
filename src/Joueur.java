@@ -30,11 +30,12 @@ public class Joueur {
         int choix = (scanner.nextInt() - 1);
 
         if (choix >= 0 && choix < pokemon_list.size()) {
-            choice_pokemon = pokemon_list.get(choix); // Assigne le Pokémon sélectionné
-            System.out.println("Vous avez choisi : " + choice_pokemon.getNom());
+            choice_pokemon = pokemon_list.get(choix);
+            System.out.println("Le Pokémon attribué à " + this.name + " est : " + choice_pokemon.getNom());
+            System.out.println("\n---------------------------------------------------\n");
             pokemon_list.remove(choix);
         } else {
-            System.out.println("Choix invalide. Réessayez.");
+            System.out.println("Aucun Pokémon n'a été choisi.");
         }
     }
 

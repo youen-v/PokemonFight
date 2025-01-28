@@ -34,11 +34,11 @@ public class Combat {
 
         System.out.println("Veuillez choisir une Attaque (entrez son nom) :");
         int choix = scanner.nextInt();
-        String name = attNom.get((choix - 1));
+        String attName = attNom.get((choix - 1));
         // Vérification de la validité du choix
-        if (listAtt.containsKey(name)) {
-            degat = listAtt.get(name); // Assigne le Pokémon sélectionné
-            System.out.println("Vous avez choisi : " + name);
+        if (listAtt.containsKey(attName)) {
+            degat = listAtt.get(attName);
+            System.out.println("Vous avez choisi : " + attName);
         } else {
             System.out.println("Choix invalide. Réessayez.");
             return choiceAttq(joueur);
