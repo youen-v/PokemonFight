@@ -1,16 +1,48 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
+
 import consoleColors.ConsoleColors;
 
 public class Main {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\n=== MENU PRINCIPAL ===");
+        System.out.println("1. Choix joueur");
+        System.out.println("2. Démarrer un combat");
+        System.out.println("0. Quitter");
+        System.out.print("Votre choix : ");
+
+        Joueur joueur_1 = null;
+        Joueur joueur_2 = null;
+
+        int choixMenu = scanner.nextInt();
+        switch (choixMenu){
+            case 0:
+                System.out.println("Exit");
+                System.exit(1);
+                break;
+            case 1:
+                System.out.println("Choix Joueur");
+                System.out.println("Nom du joueur 1 : ");
+                String nameJ1 = scanner.nextLine();
+                joueur_1 = new Joueur(nameJ1);
+
+                System.out.println("Nom du joueur 2 : ");
+                String nameJ2 = scanner.nextLine();
+                joueur_2 = new Joueur(nameJ2);
+                break;
+            case 2:
+                System.out.println("Combat Rapide");
+                // Instanciation du joueur 1
+                joueur_1 = new Joueur("Sacha");
+                // Instanciation du joueur 2
+                joueur_2 = new Joueur("Joris");
+                break;
+        }
         // Instanciation de la liste de pokemon
         ArrayList<Pokemon> pokedex = new ArrayList<Pokemon>();
-        // Instanciation du joueur 1
-        Joueur joueur_1 = new Joueur("Sacha");
-        // Instanciation du joueur 2
-        Joueur joueur_2 = new Joueur("Joris");
 
         // Instanciation et ajout des pokemons à la liste
         // Instanciation Pikachu
