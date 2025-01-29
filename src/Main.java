@@ -25,12 +25,14 @@ public class Main {
                 break;
             case 1:
                 System.out.println("Choix Joueur");
+
                 System.out.println("Nom du joueur 1 : ");
-                String nameJ1 = scanner.nextLine();
-                joueur_1 = new Joueur(nameJ1);
+                String nameJ1 = scanner.next();
 
                 System.out.println("Nom du joueur 2 : ");
-                String nameJ2 = scanner.nextLine();
+                String nameJ2 = scanner.next();
+
+                joueur_1 = new Joueur(nameJ1);
                 joueur_2 = new Joueur(nameJ2);
                 break;
             case 2:
