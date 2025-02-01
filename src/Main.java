@@ -1,16 +1,50 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
+
 import consoleColors.ConsoleColors;
 
 public class Main {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\n=== MENU PRINCIPAL ===");
+        System.out.println("1. Choix joueur");
+        System.out.println("2. Démarrer un combat");
+        System.out.println("0. Quitter");
+        System.out.print("Votre choix : ");
+
+        Joueur joueur_1 = null;
+        Joueur joueur_2 = null;
+
+        int choixMenu = scanner.nextInt();
+        switch (choixMenu){
+            case 0:
+                System.out.println("Exit");
+                System.exit(1);
+                break;
+            case 1:
+                System.out.println("Choix Joueur");
+
+                System.out.println("Nom du joueur 1 : ");
+                String nameJ1 = scanner.next();
+
+                System.out.println("Nom du joueur 2 : ");
+                String nameJ2 = scanner.next();
+
+                joueur_1 = new Joueur(nameJ1);
+                joueur_2 = new Joueur(nameJ2);
+                break;
+            case 2:
+                System.out.println("Combat Rapide");
+                // Instanciation du joueur 1
+                joueur_1 = new Joueur("Sacha");
+                // Instanciation du joueur 2
+                joueur_2 = new Joueur("Joris");
+                break;
+        }
         // Instanciation de la liste de pokemon
         ArrayList<Pokemon> pokedex = new ArrayList<Pokemon>();
-        // Instanciation du joueur 1
-        Joueur joueur_1 = new Joueur("Sacha");
-        // Instanciation du joueur 2
-        Joueur joueur_2 = new Joueur("Joris");
 
         // Instanciation et ajout des pokemons à la liste
         // Instanciation Pikachu
@@ -92,9 +126,7 @@ public class Main {
             System.out.println("\n------------ TOURS " + tour + " ------------");
 
             System.out.print("Attaque du premier joueur " + joueur_1.getName() + "\n");
-            int attaque1 = combat.attaquePokemon(joueur_1, joueur_2);
-            System.out.print("Degat de l'attaque de " + joueur_1.getPokemonChoisi() + " : " + attaque1 + "\n");
-            pvpokemon2 = Math.max((pvpokemon2 - attaque1), 0);
+            pvpokemon2 = Math.max(combat.attaquePokemon(joueur_1, joueur_2), 0);
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
@@ -103,13 +135,11 @@ public class Main {
             System.out.println("\n-----------------------------------------------\n");
             System.out.println(joueur_1.getPokemonChoisi().getNom() + " PV : " + pvpokemon1);
             System.out.println(joueur_2.getPokemonChoisi().getNom() + " PV : " + pvpokemon2);
-            System.out.println("\n-----------------------------------------------\n");
+            System.out.println("\n-----------------------------------------------");
             combat.finCombat(pvpokemon2);
 
             System.out.print("Attaque du deuxieme joueur " + joueur_2.getName() + "\n");
-            int attaque2 = combat.attaquePokemon(joueur_2, joueur_1);
-            System.out.print("Degat de l'attaque de " + joueur_2.getPokemonChoisi() + " : " + attaque2 + "\n");
-            pvpokemon1 = Math.max((pvpokemon1 - attaque2), 0);
+            pvpokemon1 = Math.max(combat.attaquePokemon(joueur_2, joueur_1), 0);
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
@@ -118,7 +148,7 @@ public class Main {
             System.out.println("\n-----------------------------------------------\n");
             System.out.println(joueur_1.getPokemonChoisi().getNom() + " PV : " + pvpokemon1);
             System.out.println(joueur_2.getPokemonChoisi().getNom() + " PV : " + pvpokemon2);
-            System.out.println("\n-----------------------------------------------\n");
+            System.out.println("\n-----------------------------------------------");
             combat.finCombat(pvpokemon1);
 
             tour++;
