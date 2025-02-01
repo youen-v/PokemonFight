@@ -32,13 +32,13 @@ public class Combat {
             attNom.add(attChoi.getKey());
         }
 
-        System.out.println("Veuillez choisir une Attaque (entrez son nom) :");
+        System.out.println("Veuillez choisir une Attaque (entrez son numéro) :");
         int choix = scanner.nextInt();
         String attName = attNom.get((choix - 1));
         // Vérification de la validité du choix
         if (listAtt.containsKey(attName)) {
             degat = listAtt.get(attName);
-            System.out.println("Vous avez choisi : " + attName);
+            System.out.println(joueur.getPokemonChoisi() + " attaque " + attName);
         } else {
             System.out.println("Choix invalide. Réessayez.");
             return choiceAttq(joueur);
@@ -50,20 +50,27 @@ public class Combat {
     public int attaquePokemon(Joueur joueurAtt, Joueur joueurDef){
 
         int attq = choiceAttq(joueurAtt);
+        int def = joueurDef.getPokemonChoisi().getDefense();
+        ArrayList<Integer> history = joueurDef.getPokemonChoisi().getHistoryPv();
+        int pvRest = history.getLast();
+
         String typeAtt = joueurAtt.getPokemonChoisi().getType();
         String typeDef = joueurDef.getPokemonChoisi().getType();
 
         if ((typeAtt.equals("Feu") && typeDef.equals("Plante")) || (typeAtt.equals("Plante") && typeDef.equals("Eau")) || (typeAtt.equals("Eau") && typeDef.equals("Feu"))){
             attq = attq * 2;
         }
-        return attq;
+
+        System.out.print("-> Dégats : " + attq + "\n");
+        pvRest = pvRest - (attq - def);
+        history.add(pvRest);
+        return pvRest;
     }
 
-    public boolean finCombat(int pvpoke){
+    public void finCombat(int pvpoke){
         if (pvpoke <= 0) {
             System.out.println("Fin du combat");
             System.exit(1);
         }
-        return true;
     }
 }

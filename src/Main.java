@@ -126,9 +126,7 @@ public class Main {
             System.out.println("\n------------ TOURS " + tour + " ------------");
 
             System.out.print("Attaque du premier joueur " + joueur_1.getName() + "\n");
-            int attaque1 = combat.attaquePokemon(joueur_1, joueur_2);
-            System.out.print("Degat de l'attaque de " + joueur_1.getPokemonChoisi() + " : " + attaque1 + "\n");
-            pvpokemon2 = Math.max((pvpokemon2 - attaque1), 0);
+            pvpokemon2 = Math.max(combat.attaquePokemon(joueur_1, joueur_2), 0);
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
@@ -137,13 +135,11 @@ public class Main {
             System.out.println("\n-----------------------------------------------\n");
             System.out.println(joueur_1.getPokemonChoisi().getNom() + " PV : " + pvpokemon1);
             System.out.println(joueur_2.getPokemonChoisi().getNom() + " PV : " + pvpokemon2);
-            System.out.println("\n-----------------------------------------------\n");
+            System.out.println("\n-----------------------------------------------");
             combat.finCombat(pvpokemon2);
 
             System.out.print("Attaque du deuxieme joueur " + joueur_2.getName() + "\n");
-            int attaque2 = combat.attaquePokemon(joueur_2, joueur_1);
-            System.out.print("Degat de l'attaque de " + joueur_2.getPokemonChoisi() + " : " + attaque2 + "\n");
-            pvpokemon1 = Math.max((pvpokemon1 - attaque2), 0);
+            pvpokemon1 = Math.max(combat.attaquePokemon(joueur_2, joueur_1), 0);
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
@@ -152,7 +148,7 @@ public class Main {
             System.out.println("\n-----------------------------------------------\n");
             System.out.println(joueur_1.getPokemonChoisi().getNom() + " PV : " + pvpokemon1);
             System.out.println(joueur_2.getPokemonChoisi().getNom() + " PV : " + pvpokemon2);
-            System.out.println("\n-----------------------------------------------\n");
+            System.out.println("\n-----------------------------------------------");
             combat.finCombat(pvpokemon1);
 
             tour++;
