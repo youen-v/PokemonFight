@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Joueur {
-    private String name;
+    private final String name;
     private Pokemon choice_pokemon;
 
     public Joueur(String nom){
@@ -22,7 +22,7 @@ public class Joueur {
 
         System.out.println("Liste des Pokémon disponibles :");
         for (int i = 0; i < pokemon_list.size(); i++) {
-            System.out.println((i + 1) + ": " + pokemon_list.get(i));
+            System.out.println((i + 1) + ": " + pokemon_list.get(i).getNom());
         }
 
         System.out.println("Veuillez choisir un Pokémon (entrez le numéro) :");

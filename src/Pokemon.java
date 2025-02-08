@@ -5,10 +5,9 @@ import java.util.Map;
 public class Pokemon {
     private final String name;
     private final String type;
-    private final int pv;
-    private ArrayList<Integer> historyPv;
-    private final Map<String , Integer> liste_attaque;
-    private final int defense;
+    private int pv;
+    private Map<String , Integer> liste_attaque;
+    private int defense;
 
     public Pokemon(String nom, String type, int pv, Map<String, Integer> attq, int def){
         this.name = nom;
@@ -16,9 +15,6 @@ public class Pokemon {
         this.pv = pv;
         this.liste_attaque = new HashMap<>(attq);
         this.defense = def;
-        this.historyPv = new ArrayList<>();
-        historyPv.add(pv);
-
     }
 
     public String getNom() {
@@ -33,20 +29,33 @@ public class Pokemon {
         return pv;
     }
 
+    public void setPv(int pv) {
+        pv = Math.max(pv, 0);
+        this.pv = pv;
+    }
+
     public Map<String, Integer> getListe_attaque() {
         return liste_attaque;
+    }
+
+    public void setListe_attaque(Map<String, Integer> liste_attaque) {
+        this.liste_attaque = liste_attaque;
     }
 
     public int getDefense() {
         return defense;
     }
 
-    public ArrayList<Integer> getHistoryPv() {
-        return historyPv;
+    public void setDefense(int defense) {
+        this.defense = defense;
+    }
+
+    public boolean estKo() {
+        return getPv() <= 0;
     }
 
     @Override
     public String toString() {
-        return name;
+        return name + " PV : " + pv;
     }
 }

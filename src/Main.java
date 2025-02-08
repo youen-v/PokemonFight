@@ -112,48 +112,39 @@ public class Main {
             }
         }
 
-        Combat combat = new Combat(joueur_1, joueur_2);
-        int pvpokemon1 = combat.affichePv(joueur_1);
-        int pvpokemon2 = combat.affichePv(joueur_2);
+        Combat combat = new Combat();
 
         System.out.println(joueur_1.getName() + " à choisi " + joueur_1.getPokemonChoisi());
         System.out.println(joueur_2.getName() + " à choisi " + joueur_2.getPokemonChoisi());
 
         int tour = 1;
+        int pvpokemon1 = 0;
 
         do {
 
             System.out.println("\n------------ TOURS " + tour + " ------------");
 
             System.out.print("Attaque du premier joueur " + joueur_1.getName() + "\n");
-            pvpokemon2 = Math.max(combat.attaquePokemon(joueur_1, joueur_2), 0);
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            combat.pointDeVieRestant((combat.attaquePokemon(joueur_1, joueur_2)), joueur_2);
+
             System.out.println("\n-----------------------------------------------\n");
-            System.out.println(joueur_1.getPokemonChoisi().getNom() + " PV : " + pvpokemon1);
-            System.out.println(joueur_2.getPokemonChoisi().getNom() + " PV : " + pvpokemon2);
+            System.out.println(joueur_1.getPokemonChoisi());
+            System.out.println(joueur_2.getPokemonChoisi());
             System.out.println("\n-----------------------------------------------");
-            combat.finCombat(pvpokemon2);
+
 
             System.out.print("Attaque du deuxieme joueur " + joueur_2.getName() + "\n");
-            pvpokemon1 = Math.max(combat.attaquePokemon(joueur_2, joueur_1), 0);
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            System.out.println("\n-----------------------------------------------\n");
-            System.out.println(joueur_1.getPokemonChoisi().getNom() + " PV : " + pvpokemon1);
-            System.out.println(joueur_2.getPokemonChoisi().getNom() + " PV : " + pvpokemon2);
-            System.out.println("\n-----------------------------------------------");
-            combat.finCombat(pvpokemon1);
+            combat.pointDeVieRestant((combat.attaquePokemon(joueur_2, joueur_1)), joueur_1);
 
+            System.out.println("\n-----------------------------------------------\n");
+            System.out.println(joueur_1.getPokemonChoisi());
+            System.out.println(joueur_2.getPokemonChoisi());
+            System.out.println("\n-----------------------------------------------");
+
+            combat.finCombat(joueur_1, joueur_2);
             tour++;
 
-        } while ((pvpokemon2 != 0) || (pvpokemon1 != 0));
+        } while (pvpokemon1 <= 0);
 
     }
 }
