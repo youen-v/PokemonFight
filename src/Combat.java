@@ -58,10 +58,9 @@ public class Combat {
         pokemon.getPokemonChoisi().setPv(pvPokemon - degatAttaque);
     }
 
-    public void finCombat(Joueur pokemon1, Joueur pokemon2){
-        boolean etatPokemon1 = pokemon1.getPokemonChoisi().estKo();
-        boolean etatPokemon2 = pokemon2.getPokemonChoisi().estKo();
-        if (etatPokemon1 || etatPokemon2) {
+    public void finCombat(Joueur pokemon){
+        boolean etatPokemon = pokemon.getPokemonChoisi().estKo();
+        if (etatPokemon) {
             System.out.println("Fin du combat");
             System.exit(1);
         }

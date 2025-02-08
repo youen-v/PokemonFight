@@ -1,3 +1,5 @@
+import consoleColors.ConsoleColors;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -41,5 +43,24 @@ public class Joueur {
 
     public Pokemon getPokemonChoisi() {
         return choice_pokemon;
+    }
+
+    public void essaiJoueur (ArrayList<Pokemon> pokedex) {
+        for (int essaie = 0; essaie < 3; essaie++) {
+            // Appel de la méthode de la classe Joueur pour choisir un pokemon
+            System.out.println("Choisi ton pokemon " + this.getName());
+            this.getChoice_pokemon(pokedex);
+            //
+            Pokemon pokeChoice = this.getPokemonChoisi();
+
+            if (pokeChoice != null) {
+                essaie = 3;
+            } else if (essaie < 2) {
+                System.out.println(ConsoleColors.RED + "Il vous reste " + (3 - (essaie + 1)) + " essaie" + ConsoleColors.RESET);
+            } else {
+                System.out.println("Aurevoir");
+                System.exit(0);
+            }
+        }
     }
 }

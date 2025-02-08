@@ -43,7 +43,8 @@ public class Main {
                 joueur_2 = new Joueur("Joris");
                 break;
         }
-        // Instanciation de la liste de pokemon
+        
+        // Instantiation de la liste de pokemon
         ArrayList<Pokemon> pokedex = new ArrayList<Pokemon>();
 
         // Instanciation et ajout des pokemons à la liste
@@ -78,39 +79,9 @@ public class Main {
         Pokemon rondoudou = new Pokemon("Rondoudou", "Normal", 130, attRond, 20);
         pokedex.add(rondoudou);
 
-        for (int essaie = 0; essaie < 3; essaie++) {
-            // Appel de la méthode de la classe Joueur pour choisir un pokemon
-            System.out.println("Choisi ton pokemon " + joueur_1.getName());
-            joueur_1.getChoice_pokemon(pokedex);
-            //
-            Pokemon pokeChoice = joueur_1.getPokemonChoisi();
-
-            if (pokeChoice != null) {
-                essaie = 3;
-            } else if (essaie < 2) {
-                System.out.println(ConsoleColors.RED + "Il vous reste " + (3 - (essaie + 1)) + " essaie" + ConsoleColors.RESET);
-            } else {
-                System.out.println("Aurevoir");
-                System.exit(0);
-            }
-        }
-
-        for (int essaie = 0; essaie < 3; essaie++) {
-            // Appel de la méthode de la classe Joueur pour choisir un pokemon
-            System.out.println("Choisi ton pokemon " + joueur_2.getName());
-            joueur_2.getChoice_pokemon(pokedex);
-            //
-            Pokemon pokeChoice = joueur_2.getPokemonChoisi();
-
-            if (pokeChoice != null) {
-                essaie = 3;
-            } else if (essaie < 2) {
-                System.out.println(ConsoleColors.RED + "Il vous reste " + (3 - (essaie + 1)) + " essaie" + ConsoleColors.RESET);
-            } else {
-                System.out.println("Aurevoir");
-                System.exit(0);
-            }
-        }
+        assert joueur_1 != null;
+        joueur_1.essaiJoueur(pokedex);
+        joueur_2.essaiJoueur(pokedex);
 
         Combat combat = new Combat();
 
@@ -119,29 +90,21 @@ public class Main {
 
         int tour = 1;
         int pvpokemon1 = 0;
-
         do {
+            Joueur joueurAtt = (tour % 2 == 0)? joueur_2 : joueur_1;
+            Joueur joueurDef = (tour % 2 == 0)? joueur_1 : joueur_2;
 
             System.out.println("\n------------ TOURS " + tour + " ------------");
 
-            System.out.print("Attaque du premier joueur " + joueur_1.getName() + "\n");
-            combat.pointDeVieRestant((combat.attaquePokemon(joueur_1, joueur_2)), joueur_2);
+            System.out.print("Attaque du joueur " + joueurAtt.getName() + "\n");
+            combat.pointDeVieRestant((combat.attaquePokemon(joueurAtt, joueurDef)), joueurDef);
 
             System.out.println("\n-----------------------------------------------\n");
-            System.out.println(joueur_1.getPokemonChoisi());
-            System.out.println(joueur_2.getPokemonChoisi());
+            System.out.println(joueurAtt.getPokemonChoisi());
+            System.out.println(joueurDef.getPokemonChoisi());
             System.out.println("\n-----------------------------------------------");
 
-
-            System.out.print("Attaque du deuxieme joueur " + joueur_2.getName() + "\n");
-            combat.pointDeVieRestant((combat.attaquePokemon(joueur_2, joueur_1)), joueur_1);
-
-            System.out.println("\n-----------------------------------------------\n");
-            System.out.println(joueur_1.getPokemonChoisi());
-            System.out.println(joueur_2.getPokemonChoisi());
-            System.out.println("\n-----------------------------------------------");
-
-            combat.finCombat(joueur_1, joueur_2);
+            combat.finCombat(joueurDef);
             tour++;
 
         } while (pvpokemon1 <= 0);
