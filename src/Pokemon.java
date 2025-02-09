@@ -34,11 +34,11 @@ public class Pokemon {
         this.pv = pv;
     }
 
-    public Map<String, Integer> getListe_attaque() {
+    public Map<String, Integer> getListeAttaque() {
         return liste_attaque;
     }
 
-    public void setListe_attaque(Map<String, Integer> liste_attaque) {
+    public void setListeAttaque(Map<String, Integer> liste_attaque) {
         this.liste_attaque = liste_attaque;
     }
 

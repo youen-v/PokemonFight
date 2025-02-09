@@ -12,11 +12,11 @@ public class Joueur {
         this.choice_pokemon = null;
     }
 
-    public String getName() {
+    public String getNom() {
         return name;
     }
 
-    public void getChoice_pokemon(ArrayList<Pokemon> pokemon_list) {
+    public void getChoixPokemon(ArrayList<Pokemon> pokemon_list) {
         if (choice_pokemon != null) {
             System.out.println("Vous avez déjà sélectionné " + choice_pokemon.getNom());
             return;
@@ -48,8 +48,8 @@ public class Joueur {
     public void essaiJoueur (ArrayList<Pokemon> pokedex) {
         for (int essaie = 0; essaie < 3; essaie++) {
             // Appel de la méthode de la classe Joueur pour choisir un pokemon
-            System.out.println("Choisi ton pokemon " + this.getName());
-            this.getChoice_pokemon(pokedex);
+            System.out.println("Choisi ton pokemon " + this.getNom());
+            this.getChoixPokemon(pokedex);
             //
             Pokemon pokeChoice = this.getPokemonChoisi();
 

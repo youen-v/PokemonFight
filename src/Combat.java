@@ -6,36 +6,36 @@ import java.util.Scanner;
 public class Combat {
     private String attaqueSelectionner;
 
-    public Map<String, Integer> choiceAttq(Joueur joueur){
+    public Map<String, Integer> choixAttaque(Joueur joueur){
         Scanner scanner = new Scanner(System.in);
-        Map<String , Integer> listAtt = joueur.getPokemonChoisi().getListe_attaque();
-        ArrayList<String> listCleAttaque = new ArrayList<>();
-        int idAttq = 1;
+        Map<String , Integer> listeAttaque = joueur.getPokemonChoisi().getListeAttaque();
+        ArrayList<String> listeCleAttaque = new ArrayList<>();
+        int idAttaque = 1;
 
         System.out.println("Liste des attaques : ");
-        for ( Map.Entry<String , Integer> attChoi : listAtt.entrySet()) {
-            System.out.println(idAttq++ + " - " + attChoi.getKey() + " degat : " + attChoi.getValue());
-            listCleAttaque.add(attChoi.getKey());
+        for ( Map.Entry<String , Integer> attaque : listeAttaque.entrySet()) {
+            System.out.println(idAttaque++ + " - " + attaque.getKey() + " degat : " + attaque.getValue());
+            listeCleAttaque.add(attaque.getKey());
         }
 
         System.out.println("Veuillez choisir une Attaque (entrez son numéro) :");
         int choix = scanner.nextInt();
-        this.attaqueSelectionner = listCleAttaque.get(choix - 1);
+        this.attaqueSelectionner = listeCleAttaque.get(choix - 1);
         // Vérification de la validité du choix
-        if (listAtt.containsKey(attaqueSelectionner)) {
+        if (listeAttaque.containsKey(attaqueSelectionner)) {
             Map<String,Integer> attaqueChoisie = new HashMap<>();
-            attaqueChoisie.put(attaqueSelectionner, listAtt.get(attaqueSelectionner));
+            attaqueChoisie.put(attaqueSelectionner, listeAttaque.get(attaqueSelectionner));
             System.out.println(joueur.getPokemonChoisi().getNom() + " attaque " + attaqueSelectionner);
             return attaqueChoisie;
        } else {
             System.out.println("Choix invalide. Réessayez.");
-            return choiceAttq(joueur);
+            return choixAttaque(joueur);
        }
     }
 
     public Map<String, Integer> attaquePokemon(Joueur joueurAtt, Joueur joueurDef){
 
-        Map<String, Integer> attaque = choiceAttq(joueurAtt);
+        Map<String, Integer> attaque = choixAttaque(joueurAtt);
         int degat = attaque.get(attaqueSelectionner);
         int def = joueurDef.getPokemonChoisi().getDefense();
 
