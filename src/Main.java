@@ -21,7 +21,7 @@ public class Main {
         switch (choixMenu){
             case 0:
                 System.out.println("Exit");
-                System.exit(1);
+                System.exit(0);
                 break;
             case 1:
                 System.out.println("Choix Joueur");
@@ -45,7 +45,7 @@ public class Main {
         }
         
         // Instantiation de la liste de pokemon
-        ArrayList<Pokemon> pokedex = new ArrayList<Pokemon>();
+        ArrayList<Pokemon> pokedex = new ArrayList<>();
 
         // Instanciation et ajout des pokemons à la liste
         // Instanciation Pikachu
@@ -79,17 +79,18 @@ public class Main {
         Pokemon rondoudou = new Pokemon("Rondoudou", "Normal", 130, attRond, 20);
         pokedex.add(rondoudou);
 
-        assert joueur_1 != null;
-        joueur_1.essaiJoueur(pokedex);
-        joueur_2.essaiJoueur(pokedex);
+        if (joueur_1 != null && joueur_2 != null) {
+            joueur_1.essaiJoueur(pokedex);
+            System.out.println(joueur_1.getName() + " à choisi " + joueur_1.getPokemonChoisi());
+            joueur_2.essaiJoueur(pokedex);
+            System.out.println(joueur_2.getName() + " à choisi " + joueur_2.getPokemonChoisi());
+        } else {
+            System.out.println(ConsoleColors.RED + "AUCUN JOUEUR TROUVE" + ConsoleColors.RESET);
+        }
 
         Combat combat = new Combat();
-
-        System.out.println(joueur_1.getName() + " à choisi " + joueur_1.getPokemonChoisi());
-        System.out.println(joueur_2.getName() + " à choisi " + joueur_2.getPokemonChoisi());
-
         int tour = 1;
-        int pvpokemon1 = 0;
+
         do {
             Joueur joueurAtt = (tour % 2 == 0)? joueur_2 : joueur_1;
             Joueur joueurDef = (tour % 2 == 0)? joueur_1 : joueur_2;
@@ -107,7 +108,10 @@ public class Main {
             combat.finCombat(joueurDef);
             tour++;
 
-        } while (pvpokemon1 <= 0);
+        } while (
+                joueur_1.getPokemonChoisi().estKo() ||
+                joueur_2.getPokemonChoisi().estKo()
+        );
 
     }
 }

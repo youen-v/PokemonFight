@@ -62,7 +62,7 @@ public class Combat {
         boolean etatPokemon = pokemon.getPokemonChoisi().estKo();
         if (etatPokemon) {
             System.out.println("Fin du combat");
-            System.exit(1);
+            System.exit(0);
         }
     }
 }
