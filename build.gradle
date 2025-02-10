@@ -1,0 +1,23 @@
+plugins {
+    id 'application'
+}
+
+group = 'partiel_java'
+version = '1.0.0'
+
+//version Java
+sourceCompatibility = '11'
+
+mainClassName = 'Main';
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    //testImplementation 'junit:junit:4.13.2'
+}
+
+run {
+    standardInput = System.in
+}
