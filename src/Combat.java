@@ -1,74 +1,66 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 public class Combat {
-    private Joueur joueur1;
-    private Joueur joueur2;
+    private String attaqueSelectionner;
 
-    public Combat(Joueur joueur1, Joueur joueur2){
-        this.joueur1 = joueur1;
-        this.joueur2 = joueur2;
-    }
-
-    public int affichePv(Joueur joueur) {
-        int pvpokemon = joueur.getPokemonChoisi().getPv();
-        if (pvpokemon < 0 ){
-            pvpokemon = 0;
-        }
-        return pvpokemon;
-    }
-
-    public int choiceAttq(Joueur joueur){
+    public Map<String, Integer> choixAttaque(Joueur joueur){
         Scanner scanner = new Scanner(System.in);
-        int degat;
-        ArrayList<String> attNom = new ArrayList<>();
-        Map<String , Integer> listAtt = joueur.getPokemonChoisi().getListe_attaque();
-        int idAttq = 1;
+        Map<String , Integer> listeAttaque = joueur.getPokemonChoisi().getListeAttaque();
+        ArrayList<String> listeCleAttaque = new ArrayList<>();
+        int idAttaque = 1;
 
         System.out.println("Liste des attaques : ");
-        for ( Map.Entry<String , Integer> attChoi : listAtt.entrySet()) {
-            System.out.println(idAttq++ + " - " + attChoi.getKey() + " degat : " + attChoi.getValue());
-            attNom.add(attChoi.getKey());
+        for ( Map.Entry<String , Integer> attaque : listeAttaque.entrySet()) {
+            System.out.println(idAttaque++ + " - " + attaque.getKey() + " degat : " + attaque.getValue());
+            listeCleAttaque.add(attaque.getKey());
         }
 
         System.out.println("Veuillez choisir une Attaque (entrez son numéro) :");
         int choix = scanner.nextInt();
-        String attName = attNom.get((choix - 1));
+        this.attaqueSelectionner = listeCleAttaque.get(choix - 1);
         // Vérification de la validité du choix
-        if (listAtt.containsKey(attName)) {
-            degat = listAtt.get(attName);
-            System.out.println(joueur.getPokemonChoisi() + " attaque " + attName);
-        } else {
+        if (listeAttaque.containsKey(attaqueSelectionner)) {
+            Map<String,Integer> attaqueChoisie = new HashMap<>();
+            attaqueChoisie.put(attaqueSelectionner, listeAttaque.get(attaqueSelectionner));
+            System.out.println(joueur.getPokemonChoisi().getNom() + " attaque " + attaqueSelectionner);
+            return attaqueChoisie;
+       } else {
             System.out.println("Choix invalide. Réessayez.");
-            return choiceAttq(joueur);
-        }
-
-        return degat;
+            return choixAttaque(joueur);
+       }
     }
 
-    public int attaquePokemon(Joueur joueurAtt, Joueur joueurDef){
+    public Map<String, Integer> attaquePokemon(Joueur joueurAtt, Joueur joueurDef){
 
-        int attq = choiceAttq(joueurAtt);
+        Map<String, Integer> attaque = choixAttaque(joueurAtt);
+        int degat = attaque.get(attaqueSelectionner);
         int def = joueurDef.getPokemonChoisi().getDefense();
-        ArrayList<Integer> history = joueurDef.getPokemonChoisi().getHistoryPv();
-        int pvRest = history.getLast();
 
         String typeAtt = joueurAtt.getPokemonChoisi().getType();
         String typeDef = joueurDef.getPokemonChoisi().getType();
 
-        if ((typeAtt.equals("Feu") && typeDef.equals("Plante")) || (typeAtt.equals("Plante") && typeDef.equals("Eau")) || (typeAtt.equals("Eau") && typeDef.equals("Feu"))){
-            attq = attq * 2;
-        }
+       if ((typeAtt.equals("Feu") && typeDef.equals("Plante")) || (typeAtt.equals("Plante") && typeDef.equals("Eau")) || (typeAtt.equals("Eau") && typeDef.equals("Feu"))){
+           degat = degat * 2;
+       }
 
-        System.out.print("-> Dégats : " + attq + "\n");
-        pvRest = pvRest - (attq - def);
-        history.add(pvRest);
-        return pvRest;
+       System.out.print("-> Dégats : " + degat + "\n");
+       degat = (degat - def);
+       attaque.put(attaqueSelectionner, degat);
+       return attaque;
     }
 
-    public void finCombat(int pvpoke){
-        if (pvpoke <= 0) {
+    public void pointDeVieRestant(Map<String, Integer> attaque, Joueur pokemon) {
+        int degatAttaque = attaque.get(attaqueSelectionner);
+        int pvPokemon = pokemon.getPokemonChoisi().getPv();
+        pokemon.getPokemonChoisi().setPv(pvPokemon - degatAttaque);
+    }
+
+    public void finCombat(Joueur pokemon){
+        boolean etatPokemon = pokemon.getPokemonChoisi().estKo();
+        if (etatPokemon) {
             System.out.println("Fin du combat");
             System.exit(1);
         }

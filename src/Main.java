@@ -21,19 +21,19 @@ public class Main {
         switch (choixMenu){
             case 0:
                 System.out.println("Exit");
-                System.exit(1);
+                System.exit(0);
                 break;
             case 1:
                 System.out.println("Choix Joueur");
 
                 System.out.println("Nom du joueur 1 : ");
-                String nameJ1 = scanner.next();
+                String nomJoueur1 = scanner.next();
 
                 System.out.println("Nom du joueur 2 : ");
-                String nameJ2 = scanner.next();
+                String nomJoueur2 = scanner.next();
 
-                joueur_1 = new Joueur(nameJ1);
-                joueur_2 = new Joueur(nameJ2);
+                joueur_1 = new Joueur(nomJoueur1);
+                joueur_2 = new Joueur(nomJoueur2);
                 break;
             case 2:
                 System.out.println("Combat Rapide");
@@ -43,117 +43,52 @@ public class Main {
                 joueur_2 = new Joueur("Joris");
                 break;
         }
-        // Instanciation de la liste de pokemon
-        ArrayList<Pokemon> pokedex = new ArrayList<Pokemon>();
+
+        // Instantiation de la liste de pokemon
+        ArrayList<Pokemon> pokedex = new ArrayList<>();
 
         // Instanciation et ajout des pokemons à la liste
         // Instanciation Pikachu
-        Map<String, Integer> attPika = new HashMap<>();
-        attPika.put("Éclair", 40);
-        attPika.put("Tonnerre", 60);
-        Pokemon pikachu = new Pokemon("Pikachu", "Électrique", 100, attPika, 30);
+        Map<String, Integer> attaquePika = new HashMap<>();
+        attaquePika.put("Éclair", 40);
+        attaquePika.put("Tonnerre", 60);
+        Pokemon pikachu = new Pokemon("Pikachu", "Électrique", 100, attaquePika, 30);
         pokedex.add(pikachu);
-        // Instanciation Bulbizarre
-        Map<String, Integer> attBulb = new HashMap<>();
-        attBulb.put("Charge", 40);
-        attBulb.put("Fouet-Liane", 60);
-        Pokemon bulbizarre = new Pokemon("Bulbizarre", "Plante", 120, attBulb, 35);
-        pokedex.add(bulbizarre);
-        // Instanciation Salamèche
-        Map<String, Integer> attSala = new HashMap<>();
-        attSala.put("Flammèche", 35);
-        attSala.put("Lance-Flammes", 50);
-        Pokemon salameche = new Pokemon("Salamèche", "Feu", 110, attSala, 25);
-        pokedex.add(salameche);
-        // Instanciation Carapuce
-        Map<String, Integer> attCara = new HashMap<>();
-        attCara.put("Écume", 30);
-        attCara.put("Pistolet à O", 40);
-        Pokemon carapuce = new Pokemon("Carapuce", "Eau", 115, attCara, 40);
-        pokedex.add(carapuce);
-        // Instanciation Rondoudou
-        Map<String, Integer> attRond = new HashMap<>();
-        attRond.put("Ecras'Face", 40);
-        attRond.put("Echo", 50);
-        Pokemon rondoudou = new Pokemon("Rondoudou", "Normal", 130, attRond, 20);
-        pokedex.add(rondoudou);
 
-        for (int essaie = 0; essaie < 3; essaie++) {
-            // Appel de la méthode de la classe Joueur pour choisir un pokemon
-            System.out.println("Choisi ton pokemon " + joueur_1.getName());
-            joueur_1.getChoice_pokemon(pokedex);
-            //
-            Pokemon pokeChoice = joueur_1.getPokemonChoisi();
 
-            if (pokeChoice != null) {
-                essaie = 3;
-            } else if (essaie < 2) {
-                System.out.println(ConsoleColors.RED + "Il vous reste " + (3 - (essaie + 1)) + " essaie" + ConsoleColors.RESET);
-            } else {
-                System.out.println("Aurevoir");
-                System.exit(0);
-            }
+        if (joueur_1 != null && joueur_2 != null) {
+            joueur_1.essaiJoueur(pokedex);
+            System.out.println(joueur_1.getNom() + " à choisi " + joueur_1.getPokemonChoisi());
+            joueur_2.essaiJoueur(pokedex);
+            System.out.println(joueur_2.getNom() + " à choisi " + joueur_2.getPokemonChoisi());
+        } else {
+            System.out.println(ConsoleColors.RED + "AUCUN JOUEUR TROUVE" + ConsoleColors.RESET);
         }
 
-        for (int essaie = 0; essaie < 3; essaie++) {
-            // Appel de la méthode de la classe Joueur pour choisir un pokemon
-            System.out.println("Choisi ton pokemon " + joueur_2.getName());
-            joueur_2.getChoice_pokemon(pokedex);
-            //
-            Pokemon pokeChoice = joueur_2.getPokemonChoisi();
-
-            if (pokeChoice != null) {
-                essaie = 3;
-            } else if (essaie < 2) {
-                System.out.println(ConsoleColors.RED + "Il vous reste " + (3 - (essaie + 1)) + " essaie" + ConsoleColors.RESET);
-            } else {
-                System.out.println("Aurevoir");
-                System.exit(0);
-            }
-        }
-
-        Combat combat = new Combat(joueur_1, joueur_2);
-        int pvpokemon1 = combat.affichePv(joueur_1);
-        int pvpokemon2 = combat.affichePv(joueur_2);
-
-        System.out.println(joueur_1.getName() + " à choisi " + joueur_1.getPokemonChoisi());
-        System.out.println(joueur_2.getName() + " à choisi " + joueur_2.getPokemonChoisi());
-
+        Combat combat = new Combat();
         int tour = 1;
 
         do {
+            Joueur joueurAtt = (tour % 2 == 0)? joueur_2 : joueur_1;
+            Joueur joueurDef = (tour % 2 == 0)? joueur_1 : joueur_2;
 
             System.out.println("\n------------ TOURS " + tour + " ------------");
 
-            System.out.print("Attaque du premier joueur " + joueur_1.getName() + "\n");
-            pvpokemon2 = Math.max(combat.attaquePokemon(joueur_1, joueur_2), 0);
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            System.out.println("\n-----------------------------------------------\n");
-            System.out.println(joueur_1.getPokemonChoisi().getNom() + " PV : " + pvpokemon1);
-            System.out.println(joueur_2.getPokemonChoisi().getNom() + " PV : " + pvpokemon2);
-            System.out.println("\n-----------------------------------------------");
-            combat.finCombat(pvpokemon2);
+            System.out.print("Attaque du joueur " + joueurAtt.getNom() + "\n");
+            combat.pointDeVieRestant((combat.attaquePokemon(joueurAtt, joueurDef)), joueurDef);
 
-            System.out.print("Attaque du deuxieme joueur " + joueur_2.getName() + "\n");
-            pvpokemon1 = Math.max(combat.attaquePokemon(joueur_2, joueur_1), 0);
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
             System.out.println("\n-----------------------------------------------\n");
-            System.out.println(joueur_1.getPokemonChoisi().getNom() + " PV : " + pvpokemon1);
-            System.out.println(joueur_2.getPokemonChoisi().getNom() + " PV : " + pvpokemon2);
+            System.out.println(joueurAtt.getPokemonChoisi());
+            System.out.println(joueurDef.getPokemonChoisi());
             System.out.println("\n-----------------------------------------------");
-            combat.finCombat(pvpokemon1);
 
+            combat.finCombat(joueurDef);
             tour++;
 
-        } while ((pvpokemon2 != 0) || (pvpokemon1 != 0));
+        } while (
+                joueur_1.getPokemonChoisi().estKo() ||
+                        joueur_2.getPokemonChoisi().estKo()
+        );
 
     }
 }
