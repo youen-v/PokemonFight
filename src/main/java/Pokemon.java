@@ -1,3 +1,6 @@
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -5,15 +8,21 @@ public class Pokemon {
     private final String name;
     private final String type;
     private int pv;
-    private Map<String , Integer> liste_attaque;
+    private Map<String , Integer> listeAttaque;
     private int defense;
 
-    public Pokemon(String nom, String type, int pv, Map<String, Integer> attq, int def){
-        this.name = nom;
+    @JsonCreator
+    public Pokemon(
+            @JsonProperty("name") String name,
+            @JsonProperty("type") String type,
+            @JsonProperty("pv") int pv,
+            @JsonProperty("liste-attaque") Map<String, Integer> listeAttaque,
+            @JsonProperty("defense") int defense) {
+        this.name = name;
         this.type = type;
         this.pv = pv;
-        this.liste_attaque = new HashMap<>(attq);
-        this.defense = def;
+        this.listeAttaque = listeAttaque;
+        this.defense = defense;
     }
 
     public String getNom() {
@@ -34,11 +43,11 @@ public class Pokemon {
     }
 
     public Map<String, Integer> getListeAttaque() {
-        return liste_attaque;
+        return listeAttaque;
     }
 
-    public void setListeAttaque(Map<String, Integer> liste_attaque) {
-        this.liste_attaque = liste_attaque;
+    public void setListeAttaque(Map<String, Integer> listeAttaque) {
+        this.listeAttaque = listeAttaque;
     }
 
     public int getDefense() {
