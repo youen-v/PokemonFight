@@ -90,8 +90,8 @@ public class Main {
             tour++;
 
         } while (
-                joueur_1.getPokemonChoisi().estKo() ||
-                        joueur_2.getPokemonChoisi().estKo()
+                !joueur_1.getPokemonChoisi().estKo() ||
+                        !joueur_2.getPokemonChoisi().estKo()
         );
 
     }

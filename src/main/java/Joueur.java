@@ -15,26 +15,28 @@ public class Joueur {
         return name;
     }
 
-    public void getChoixPokemon(ArrayList<Pokemon> pokemon_list) {
+    public void getChoixPokemon(Pokedex pokedex) {
         if (choice_pokemon != null) {
             System.out.println("Vous avez déjà sélectionné " + choice_pokemon.getNom());
             return;
         }
 
+        ArrayList<Pokemon> pokemonListe = pokedex.getPokedex();
+
         System.out.println("Liste des Pokémon disponibles :");
-        for (int i = 0; i < pokemon_list.size(); i++) {
-            System.out.println((i + 1) + ": " + pokemon_list.get(i).getNom());
+        for (int i = 0; i < pokemonListe.size(); i++) {
+            System.out.println((i + 1) + ": " + pokemonListe.get(i).getNom());
         }
 
         System.out.println("Veuillez choisir un Pokémon (entrez le numéro) :");
         Scanner scanner = new Scanner(System.in);
         int choix = (scanner.nextInt() - 1);
 
-        if (choix >= 0 && choix < pokemon_list.size()) {
-            choice_pokemon = pokemon_list.get(choix);
+        if (choix >= 0 && choix < pokemonListe.size()) {
+            choice_pokemon = pokemonListe.get(choix);
             System.out.println("Le Pokémon attribué à " + this.name + " est : " + choice_pokemon.getNom());
             System.out.println("\n---------------------------------------------------\n");
-            pokemon_list.remove(choix);
+            pokemonListe.remove(choix);
         } else {
             System.out.println("Aucun Pokémon n'a été choisi.");
         }
@@ -44,7 +46,8 @@ public class Joueur {
         return choice_pokemon;
     }
 
-    public void essaiJoueur (ArrayList<Pokemon> pokedex) {
+    public void essaiJoueur (Pokedex pokedex) {
+        System.out.println(pokedex);
         for (int essaie = 0; essaie < 3; essaie++) {
             // Appel de la méthode de la classe Joueur pour choisir un pokemon
             System.out.println("Choisi ton pokemon " + this.getNom());

@@ -2,21 +2,19 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Pokedex {
-    public List<Pokemon> pokedex;
+    public ArrayList<Pokemon> pokedex;
 
     public Pokedex() {}
 
     @JsonCreator
-    public Pokedex(@JsonProperty("pokedex") List<Pokemon> pokedex) {
+    public Pokedex(@JsonProperty("pokedex") ArrayList<Pokemon> pokedex) {
         this.pokedex = pokedex;
     }
 
-    public List<Pokemon> getPokedex() {
+    public ArrayList<Pokemon> getPokedex() {
         return pokedex;
     }
 
