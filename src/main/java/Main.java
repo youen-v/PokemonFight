@@ -1,12 +1,28 @@
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import consoleColors.ConsoleColors;
 
 public class Main {
     public static void main(String[] args) {
+        Pokedex pokedex = null;
+        InputStream inputStream = Main.class.getClassLoader().getResourceAsStream("pokedex.json");
+        if (inputStream == null) {
+            System.err.println("Le fichier pokedex.json est introuvable dans src/main/resources");
+            return;
+        }
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            pokedex = mapper.readValue(inputStream, Pokedex.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         Scanner scanner = new Scanner(System.in);
         System.out.println("\n=== MENU PRINCIPAL ===");
         System.out.println("1. Choix joueur");
@@ -44,18 +60,6 @@ public class Main {
                 break;
         }
 
-        // Instantiation de la liste de pokemon
-        ArrayList<Pokemon> pokedex = new ArrayList<>();
-
-        // Instanciation et ajout des pokemons à la liste
-        // Instanciation Pikachu
-        Map<String, Integer> attaquePika = new HashMap<>();
-        attaquePika.put("Éclair", 40);
-        attaquePika.put("Tonnerre", 60);
-        Pokemon pikachu = new Pokemon("Pikachu", "Électrique", 100, attaquePika, 30);
-        pokedex.add(pikachu);
-
-
         if (joueur_1 != null && joueur_2 != null) {
             joueur_1.essaiJoueur(pokedex);
             System.out.println(joueur_1.getNom() + " à choisi " + joueur_1.getPokemonChoisi());
@@ -86,8 +90,8 @@ public class Main {
             tour++;
 
         } while (
-                joueur_1.getPokemonChoisi().estKo() ||
-                        joueur_2.getPokemonChoisi().estKo()
+                !joueur_1.getPokemonChoisi().estKo() ||
+                        !joueur_2.getPokemonChoisi().estKo()
         );
 
     }
