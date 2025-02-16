@@ -57,11 +57,15 @@ public class Main {
                 break;
         }
 
+        System.out.flush();
+
         if (joueur_1 != null && joueur_2 != null) {
             joueur_1.essaiJoueur(pokedex);
             System.out.println(joueur_1.getNom() + " à choisi " + joueur_1.getPokemonChoisi());
+            System.out.println("\n-----------------------------------------------\n");
             joueur_2.essaiJoueur(pokedex);
             System.out.println(joueur_2.getNom() + " à choisi " + joueur_2.getPokemonChoisi());
+            System.out.println("\n-----------------------------------------------\n");
         } else {
             System.out.println(ConsoleColors.RED + "AUCUN JOUEUR TROUVE" + ConsoleColors.RESET);
         }
@@ -69,14 +73,17 @@ public class Main {
         Combat combat = new Combat();
         int tour = 1;
 
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+
         do {
             Joueur joueurAtt = (tour % 2 == 0)? joueur_2 : joueur_1;
             Joueur joueurDef = (tour % 2 == 0)? joueur_1 : joueur_2;
 
-            System.out.println("\n------------ TOURS " + tour + " ------------");
+            System.out.println("------------ TOURS " + tour + " ------------");
 
             System.out.print("Attaque du joueur " + joueurAtt.getNom() + "\n");
-            combat.pointDeVieRestant((combat.attaquePokemon(joueurAtt, joueurDef)), joueurDef);
+            combat.pointDeVieRestant(joueurAtt, joueurDef, tour);
 
             System.out.println("\n-----------------------------------------------\n");
             System.out.println(joueurAtt.getPokemonChoisi());

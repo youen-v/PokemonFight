@@ -49,6 +49,56 @@
         "Echo": 50
       },
       "defense": 20
+    },
+    {
+      "name": "Mewtwo",
+      "type": "Psy",
+      "pv": 180,
+      "liste-attaque": {
+        "Psyko": 80,
+        "Ultra-Laser": 150
+      },
+      "defense": 50
+    },
+    {
+      "name": "Roucool",
+      "type": "Vol",
+      "pv": 70,
+      "liste-attaque": {
+        "Charge": 30,
+        "Attaque d'ailes": 35
+      },
+      "defense": 20
+    },
+    {
+      "name": "Rattata",
+      "type": "Normal",
+      "pv": 60,
+      "liste-attaque": {
+        "Charge": 25,
+        "Morsure": 30
+      },
+      "defense": 15
+    },
+    {
+      "name": "Nosferapti",
+      "type": "Poison",
+      "pv": 80,
+      "liste-attaque": {
+        "Suce": 35,
+        "Griffe": 30
+      },
+      "defense": 20
+    },
+    {
+      "name": "Mimitoss",
+      "type": "Insecte/Poison",
+      "pv": 70,
+      "liste-attaque": {
+        "Poudre Toxique": 40,
+        "Acide": 30
+      },
+      "defense": 18
     }
   ]
 }
