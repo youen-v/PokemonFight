@@ -34,8 +34,7 @@ public class Joueur {
 
         if (choix >= 0 && choix < pokemonListe.size()) {
             choice_pokemon = pokemonListe.get(choix);
-            System.out.println("Le Pokémon attribué à " + this.name + " est : " + choice_pokemon.getNom());
-            System.out.println("\n---------------------------------------------------\n");
+            System.out.println("\n---------------------------------------------------");
             pokemonListe.remove(choix);
         } else {
             System.out.println("Aucun Pokémon n'a été choisi.");
@@ -47,7 +46,6 @@ public class Joueur {
     }
 
     public void essaiJoueur (Pokedex pokedex) {
-        System.out.println(pokedex);
         for (int essaie = 0; essaie < 3; essaie++) {
             // Appel de la méthode de la classe Joueur pour choisir un pokemon
             System.out.println("Choisi ton pokemon " + this.getNom());

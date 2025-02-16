@@ -1,6 +1,7 @@
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public class Pokemon {
@@ -8,7 +9,9 @@ public class Pokemon {
     private final String type;
     private int pv;
     private Map<String , Integer> listeAttaque;
+    private String attaqueSelectionner;
     private int defense;
+    private ArrayList<Integer> compteurTour = new ArrayList<>();
 
     @JsonCreator
     public Pokemon(
@@ -49,6 +52,14 @@ public class Pokemon {
         this.listeAttaque = listeAttaque;
     }
 
+    public String getAttaqueSelectionner() {
+        return attaqueSelectionner;
+    }
+
+    public void setAttaqueSelectionner(String attaqueSelectionner) {
+        this.attaqueSelectionner = attaqueSelectionner;
+    }
+
     public int getDefense() {
         return defense;
     }
@@ -59,6 +70,14 @@ public class Pokemon {
 
     public boolean estKo() {
         return getPv() <= 0;
+    }
+
+    public ArrayList<Integer> getCompteurTour() {
+        return compteurTour;
+    }
+
+    public void setCompteurTour(Integer tour) {
+        this.compteurTour.add(tour);
     }
 
     @Override
