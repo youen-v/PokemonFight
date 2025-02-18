@@ -23,7 +23,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\n=== MENU PRINCIPAL ===");
         System.out.println("1. Choix joueur");
-        System.out.println("2. Démarrer un combat");
+        System.out.println("2. Combat rapide");
         System.out.println("0. Quitter");
         System.out.print("Votre choix : ");
 
@@ -55,17 +55,20 @@ public class Main {
                 // Instanciation du joueur 2
                 joueur_2 = new Joueur("Joris");
                 break;
+            default:
+                System.out.println("-- Relancer le jeu --");
+                System.exit(0);
         }
 
-        System.out.flush();
+        System.out.println("\n");
 
         if (joueur_1 != null && joueur_2 != null) {
             joueur_1.essaiJoueur(pokedex);
             System.out.println(joueur_1.getNom() + " à choisi " + joueur_1.getPokemonChoisi());
-            System.out.println("\n-----------------------------------------------\n");
+            System.out.println("\n---------------------------------------------------\n");
             joueur_2.essaiJoueur(pokedex);
             System.out.println(joueur_2.getNom() + " à choisi " + joueur_2.getPokemonChoisi());
-            System.out.println("\n-----------------------------------------------\n");
+            System.out.println("\n---------------------------------------------------\n");
         } else {
             System.out.println(ConsoleColors.RED + "AUCUN JOUEUR TROUVE" + ConsoleColors.RESET);
         }
@@ -77,10 +80,15 @@ public class Main {
         System.out.flush();
 
         do {
+            try {
+                Thread.sleep(1500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             Joueur joueurAtt = (tour % 2 == 0)? joueur_2 : joueur_1;
             Joueur joueurDef = (tour % 2 == 0)? joueur_1 : joueur_2;
 
-            System.out.println("------------ TOURS " + tour + " ------------");
+            System.out.println("------------ TOUR " + tour + " ------------");
 
             System.out.print("Attaque du joueur " + joueurAtt.getNom() + "\n");
             combat.pointDeVieRestant(joueurAtt, joueurDef, tour);
@@ -90,7 +98,7 @@ public class Main {
             System.out.println(joueurDef.getPokemonChoisi());
             System.out.println("\n-----------------------------------------------");
 
-            combat.finCombat(joueurDef);
+            combat.finCombat(joueurDef, joueurAtt);
             tour++;
 
         } while (

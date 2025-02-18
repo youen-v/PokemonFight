@@ -18,14 +18,6 @@ public class Pokedex {
         return pokedex;
     }
 
-    public void setPokedex(Map<String, Integer> listeAttaque, String nom, String type, int pv, int defense) {
-        // Instanciation et ajout des pokemons à la liste
-        // Instanciation Pikachu
-
-        Pokemon pokemon = new Pokemon(nom, type, pv, listeAttaque, defense);
-        pokedex.add(pokemon);
-    }
-
     @Override
     public String toString() {
         return "Pokedex : " + pokedex;

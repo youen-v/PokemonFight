@@ -8,8 +8,8 @@ public class Pokemon {
     private final String name;
     private final String type;
     private int pv;
-    private Map<String , Integer> listeAttaque;
-    private String attaqueSelectionner;
+    private ArrayList<Attaque> listeAttaque;
+    private Attaque attaqueSelectionner;
     private int defense;
     private ArrayList<Integer> compteurTour = new ArrayList<>();
 
@@ -18,7 +18,7 @@ public class Pokemon {
             @JsonProperty("name") String name,
             @JsonProperty("type") String type,
             @JsonProperty("pv") int pv,
-            @JsonProperty("liste-attaque") Map<String, Integer> listeAttaque,
+            @JsonProperty("liste-attaque") ArrayList<Attaque> listeAttaque,
             @JsonProperty("defense") int defense) {
         this.name = name;
         this.type = type;
@@ -44,19 +44,16 @@ public class Pokemon {
         this.pv = pv;
     }
 
-    public Map<String, Integer> getListeAttaque() {
+    public ArrayList<Attaque> getListeAttaque() {
         return listeAttaque;
     }
 
-    public void setListeAttaque(Map<String, Integer> listeAttaque) {
-        this.listeAttaque = listeAttaque;
-    }
 
-    public String getAttaqueSelectionner() {
+    public Attaque getAttaqueSelectionner() {
         return attaqueSelectionner;
     }
 
-    public void setAttaqueSelectionner(String attaqueSelectionner) {
+    public void setAttaqueSelectionner(Attaque attaqueSelectionner) {
         this.attaqueSelectionner = attaqueSelectionner;
     }
 
@@ -64,12 +61,8 @@ public class Pokemon {
         return defense;
     }
 
-    public void setDefense(int defense) {
-        this.defense = defense;
-    }
-
     public boolean estKo() {
-        return getPv() <= 0;
+        return pv <= 0;
     }
 
     public ArrayList<Integer> getCompteurTour() {
