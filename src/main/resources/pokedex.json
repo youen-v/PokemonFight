@@ -4,100 +4,200 @@
       "name": "Pikachu",
       "type": "Électrique",
       "pv": 100,
-      "liste-attaque": {
-        "Éclair": 40,
-        "Tonnerre": 60
-      },
+      "liste-attaque": [
+        {
+          "nom": "Éclair",
+          "degat": 40,
+          "type": "Électrique",
+          "utilisation": 5
+        },
+        {
+          "nom": "Tonnerre",
+          "degat": 60,
+          "type": "Électrique",
+          "utilisation": 5
+        }
+      ],
       "defense": 30
     },
     {
       "name": "Bulbizarre",
       "type": "Plante",
       "pv": 120,
-      "liste-attaque": {
-        "Charge": 40,
-        "Fouet-Liane": 60
-      },
+      "liste-attaque": [
+        {
+          "nom": "Charge",
+          "degat": 40,
+          "type": "Plante",
+          "utilisation": 5
+        },
+        {
+          "nom": "Fouet-Liane",
+          "degat": 60,
+          "type": "Plante",
+          "utilisation": 5
+        }
+      ],
       "defense": 35
     },
     {
       "name": "Salamèche",
       "type": "Feu",
       "pv": 110,
-      "liste-attaque": {
-        "Flammèche": 35,
-        "Lance-Flammes": 50
-      },
+      "liste-attaque": [
+        {
+          "nom": "Flammèche",
+          "degat": 35,
+          "type": "Feu",
+          "utilisation": 5
+        },
+        {
+          "nom": "Lance-Flammes",
+          "degat": 50,
+          "type": "Feu",
+          "utilisation": 5
+        }
+      ],
       "defense": 25
     },
     {
       "name": "Carapuce",
       "type": "Eau",
       "pv": 115,
-      "liste-attaque": {
-        "Écume": 30,
-        "Pistolet à O": 40
-      },
+      "liste-attaque": [
+        {
+          "nom": "Écume",
+          "degat": 30,
+          "type": "Eau",
+          "utilisation": 5
+        },
+        {
+          "nom": "Pistolet à O",
+          "degat": 40,
+          "type": "Eau",
+          "utilisation": 5
+        }
+      ],
       "defense": 40
     },
     {
       "name": "Rondoudou",
       "type": "Normal",
       "pv": 130,
-      "liste-attaque": {
-        "Ecras'Face": 40,
-        "Echo": 50
-      },
+      "liste-attaque": [
+        {
+          "nom": "Ecras'Face",
+          "degat": 40,
+          "type": "Normal",
+          "utilisation": 5
+        },
+        {
+          "nom": "Echo",
+          "degat": 50,
+          "type": "Normal",
+          "utilisation": 5
+        }
+      ],
       "defense": 20
     },
     {
       "name": "Mewtwo",
       "type": "Psy",
       "pv": 180,
-      "liste-attaque": {
-        "Psyko": 80,
-        "Ultra-Laser": 150
-      },
+      "liste-attaque": [
+        {
+          "nom": "Psyko",
+          "degat": 80,
+          "type": "Psy",
+          "utilisation": 5
+        },
+        {
+          "nom": "Ultra-Laser",
+          "degat": 100,
+          "type": "Psy",
+          "utilisation": 5
+        }
+      ],
       "defense": 50
     },
     {
       "name": "Roucool",
       "type": "Vol",
       "pv": 70,
-      "liste-attaque": {
-        "Charge": 30,
-        "Attaque d'ailes": 35
-      },
+      "liste-attaque": [
+        {
+          "nom": "Charge",
+          "degat": 30,
+          "type": "Vol",
+          "utilisation": 5
+        },
+        {
+          "nom": "Attaque d'ailes",
+          "degat": 35,
+          "type": "Vol",
+          "utilisation": 5
+        }
+      ],
       "defense": 20
     },
     {
       "name": "Rattata",
       "type": "Normal",
       "pv": 60,
-      "liste-attaque": {
-        "Charge": 25,
-        "Morsure": 30
-      },
+      "liste-attaque": [
+        {
+          "nom": "Charge",
+          "degat": 25,
+          "type": "Normal",
+          "utilisation": 5
+        },
+        {
+          "nom": "Morsure",
+          "degat": 30,
+          "type": "Normal",
+          "utilisation": 5
+        }
+      ],
       "defense": 15
     },
     {
       "name": "Nosferapti",
       "type": "Poison",
       "pv": 80,
-      "liste-attaque": {
-        "Suce": 35,
-        "Griffe": 30
-      },
+      "liste-attaque": [
+        {
+          "nom": "Suce",
+          "degat": 35,
+          "type": "Poison",
+          "utilisation": 5
+        },
+        {
+          "nom": "Griffe",
+          "degat": 30,
+          "type": "Poison",
+          "utilisation": 5
+        }
+      ],
       "defense": 20
     },
     {
       "name": "Mimitoss",
       "type": "Insecte/Poison",
       "pv": 70,
-      "liste-attaque": {
-        "Poudre Toxique": 40,
-        "Acide": 30
-      },
+      "liste-attaque": [
+        {
+          "nom": "Poudre Toxique",
+          "degat": 40,
+          "type": "Insecte/Poison",
+          "utilisation": 5
+        },
+        {
+          "nom": "Acide",
+          "degat": 30,
+          "type": "Insecte/Poison",
+          "utilisation": 5
+        }
+      ],
       "defense": 18
     }
   ]

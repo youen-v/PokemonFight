@@ -1,41 +1,38 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class Combat {
+    private final List<String> listeAttaqueLongue = List.of("Ultra-Laser", "Charge");
 
-    public Map<String, Integer> choixAttaque(Joueur joueur){
+    public Attaque choixAttaque(Joueur joueur){
         Scanner scanner = new Scanner(System.in);
-        Map<String , Integer> listeAttaque = joueur.getPokemonChoisi().getListeAttaque();
-        ArrayList<String> listeCleAttaque = new ArrayList<>();
-        String attaqueSelectionner = joueur.getPokemonChoisi().getAttaqueSelectionner();
+        ArrayList<Attaque> listeAttaque = joueur.getPokemonChoisi().getListeAttaque();
         ArrayList<Integer> compteurTour = joueur.getPokemonChoisi().getCompteurTour();
         int idAttaque = 1;
 
-        // Attaque automatique si attaque sur deux tours choisie
+        // Attaque automatique si attaque sur deux tours
         if (compteurTour.size() == 1) {
-            Map<String , Integer> choixAuto = new HashMap<>();
-            choixAuto.put(attaqueSelectionner, listeAttaque.get(attaqueSelectionner));
+            System.out.println("Attaque en chargement ... ");
+            try {
+                Thread.sleep(1800);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            Attaque choixAuto = joueur.getPokemonChoisi().getAttaqueSelectionner();
             return choixAuto;
         }
 
         System.out.println("Liste des attaques : ");
-        for ( Map.Entry<String , Integer> attaque : listeAttaque.entrySet()) {
-            System.out.println(idAttaque++ + " - " + attaque.getKey() + " degat : " + attaque.getValue());
-            listeCleAttaque.add(attaque.getKey());
+        for ( Attaque attaque : listeAttaque) {
+            System.out.println(idAttaque++ + " - " + attaque.getNom() + " degat : " + attaque.getDegat());
         }
 
         System.out.println("Veuillez choisir une Attaque (entrez son numéro) :");
         int choix = scanner.nextInt();
-        joueur.getPokemonChoisi().setAttaqueSelectionner(listeCleAttaque.get(choix - 1));
-        attaqueSelectionner = joueur.getPokemonChoisi().getAttaqueSelectionner();
-
+        Attaque attaqueChoisie = listeAttaque.get(choix - 1);
         // Vérification de la validité du choix
-        if (listeAttaque.containsKey(attaqueSelectionner)) {
-            Map<String,Integer> attaqueChoisie = new HashMap<>();
-            attaqueChoisie.put(attaqueSelectionner, listeAttaque.get(attaqueSelectionner));
-            System.out.println(joueur.getPokemonChoisi().getNom() + " attaque " + attaqueSelectionner);
+        if (listeAttaque.contains(attaqueChoisie) ) {
+            joueur.getPokemonChoisi().setAttaqueSelectionner(attaqueChoisie);
+            System.out.println(joueur.getPokemonChoisi().getNom() + " attaque " + attaqueChoisie);
             return attaqueChoisie;
        } else {
             System.out.println("Choix invalide. Réessayez.");
@@ -43,11 +40,11 @@ public class Combat {
        }
     }
 
-    public Map<String, Integer> attaquePokemon(Joueur joueurAtt, Joueur joueurDef, Integer tour){
+    public int degatAttaquePokemon(Joueur joueurAtt, Joueur joueurDef, Integer tour){
 
-        Map<String, Integer> attaque = choixAttaque(joueurAtt);
-        String attaqueSelectionner = joueurAtt.getPokemonChoisi().getAttaqueSelectionner();
-        int degat = attaque.get(attaqueSelectionner);
+
+        Attaque attaqueSelectionner = choixAttaque(joueurAtt);
+        int degat = attaqueSelectionner.getDegat();
         int def = joueurDef.getPokemonChoisi().getDefense();
 
         String typeAtt = joueurAtt.getPokemonChoisi().getType();
@@ -61,17 +58,16 @@ public class Combat {
             degat = 0;
         }
 
-        System.out.print("-> Dégats : " + degat + "\n");
         degat = Math.max(degat - def, 0);
+        System.out.print("-> Dégats : " + degat + "\n");
 
-        attaque.put(attaqueSelectionner, degat);
-        return attaque;
+        return degat;
     }
 
     public boolean pendingAttaque(Integer tour, Joueur compteurTour){
         ArrayList<Integer> compteurTours = compteurTour.getPokemonChoisi().getCompteurTour();
-
-        if (compteurTour.getPokemonChoisi().getAttaqueSelectionner().contains("Ultra-Laser")) {
+        Attaque nomAttaque = compteurTour.getPokemonChoisi().getAttaqueSelectionner();
+        if ( nomAttaque != null && listeAttaqueLongue.contains(nomAttaque.getNom())) {
             compteurTour.getPokemonChoisi().setCompteurTour(tour);
             if (compteurTours.size() == 1){
                 return true;
@@ -84,19 +80,18 @@ public class Combat {
     }
 
     public void pointDeVieRestant(Joueur pokemonAttaque, Joueur pokemonDefense, Integer tour) {
-        Map<String, Integer> attaqueSelectionner = attaquePokemon(pokemonAttaque, pokemonDefense, tour);
-        int degatAttaque = attaqueSelectionner.get(pokemonAttaque.getPokemonChoisi().getAttaqueSelectionner());
+        int degatAttaque = degatAttaquePokemon(pokemonAttaque, pokemonDefense, tour);
         int pvPokemon = pokemonDefense.getPokemonChoisi().getPv();
         pokemonDefense.getPokemonChoisi().setPv(pvPokemon - degatAttaque);
-        if (!pokemonAttaque.getPokemonChoisi().getAttaqueSelectionner().equals("Ultra-Laser")) {
-            pokemonAttaque.getPokemonChoisi().setAttaqueSelectionner("");
+        if (!listeAttaqueLongue.contains(pokemonAttaque.getPokemonChoisi().getAttaqueSelectionner().getNom())) {
+            pokemonAttaque.getPokemonChoisi().setAttaqueSelectionner(null);
         }
     }
 
-    public void finCombat(Joueur pokemon){
-        boolean etatPokemon = pokemon.getPokemonChoisi().estKo();
+    public void finCombat(Joueur joueurPerdant, Joueur joueurGagnant){
+        boolean etatPokemon = joueurPerdant.getPokemonChoisi().estKo();
         if (etatPokemon) {
-            System.out.println("Fin du combat");
+            System.out.println("Fin du combat : Vainqueur - " + joueurGagnant.getNom() + " avec " + joueurGagnant.getPokemonChoisi().getNom());
             System.exit(0);
         }
     }

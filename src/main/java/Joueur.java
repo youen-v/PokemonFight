@@ -48,15 +48,15 @@ public class Joueur {
     public void essaiJoueur (Pokedex pokedex) {
         for (int essaie = 0; essaie < 3; essaie++) {
             // Appel de la méthode de la classe Joueur pour choisir un pokemon
-            System.out.println("Choisi ton pokemon " + this.getNom());
-            this.getChoixPokemon(pokedex);
+            System.out.println("Choisi ton pokemon " + getNom());
+            getChoixPokemon(pokedex);
             //
-            Pokemon pokeChoice = this.getPokemonChoisi();
+            Pokemon pokeChoice = getPokemonChoisi();
 
             if (pokeChoice != null) {
                 essaie = 3;
             } else if (essaie < 2) {
-                System.out.println(ConsoleColors.RED + "Il vous reste " + (3 - (essaie + 1)) + " essaie" + ConsoleColors.RESET);
+                System.out.println(ConsoleColors.RED + "Il vous reste " + (3 - (essaie + 1)) + " essai" + ConsoleColors.RESET);
             } else {
                 System.out.println("Aurevoir");
                 System.exit(0);
