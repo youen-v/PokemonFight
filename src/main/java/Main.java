@@ -61,12 +61,13 @@ public class Main {
         }
 
         System.out.println("\n");
+        joueur_1.essaiJoueur();
 
         if (joueur_1 != null && joueur_2 != null) {
-            joueur_1.essaiJoueur(pokedex);
+            joueur_1.getChoixPokemon(pokedex);
             System.out.println(joueur_1.getNom() + " à choisi " + joueur_1.getPokemonChoisi());
             System.out.println("\n---------------------------------------------------\n");
-            joueur_2.essaiJoueur(pokedex);
+            joueur_2.getChoixPokemon(pokedex);
             System.out.println(joueur_2.getNom() + " à choisi " + joueur_2.getPokemonChoisi());
             System.out.println("\n---------------------------------------------------\n");
         } else {
