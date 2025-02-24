@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Joueur {
     private final String name;
     private Pokemon choice_pokemon;
+    private Integer essai = 0;
 
     public Joueur(String nom){
         this.name = nom;
@@ -37,7 +38,9 @@ public class Joueur {
             System.out.println("\n---------------------------------------------------");
             pokemonListe.remove(choix);
         } else {
+            essaiJoueur(pokemonListe, choix);
             System.out.println("Aucun Pokémon n'a été choisi.");
+            getChoixPokemon(pokedex);
         }
     }
 
@@ -45,10 +48,13 @@ public class Joueur {
         return choice_pokemon;
     }
 
-    public void essaiJoueur () {
-        for (int essaie = 0; essaie <= 2; essaie++) {
-            System.out.println(ConsoleColors.RED + "Il vous reste " + (3 - (essaie + 1)) + " essai" + ConsoleColors.RESET);
-            if (essaie == 2) {
+    public void essaiJoueur (ArrayList listeResponse, int reponse) {
+        int maxEssai = 3;
+
+        if (!listeResponse.contains(reponse)) {
+            essai++;
+            System.out.println(ConsoleColors.RED + "Il vous reste " + (maxEssai - essai) + " essai" + ConsoleColors.RESET);
+            if (essai == maxEssai ) {
                 System.out.println("Aurevoir");
                 System.exit(0);
             }
