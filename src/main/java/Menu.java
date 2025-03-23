@@ -49,19 +49,19 @@ public class Menu {
         System.out.println("Nom du joueur 2 : ");
         String nomJoueur2 = scanner.next();
 
-        Joueur joueur_1 = new Joueur(nomJoueur1);
-        Joueur joueur_2 = new Joueur(nomJoueur2);
+        Joueur joueur_1 = new Joueur(nomJoueur1, new Pokedex(Main.class.getClassLoader().getResourceAsStream("pokedex.json")));
+        Joueur joueur_2 = new Joueur(nomJoueur2, new Pokedex(Main.class.getClassLoader().getResourceAsStream("pokedex.json")));
     }
 
     public void combatRapide(){
         System.out.println("Combat Rapide");
         // Instanciation du joueur 1
-        Joueur joueur_1 = new Joueur("Sacha");
+        Joueur joueur_1 = new Joueur("Sacha", new Pokedex(Main.class.getClassLoader().getResourceAsStream("pokedex.json")));
         // Instanciation du joueur 2
-        Joueur joueur_2 = new Joueur("Joris");
+        Joueur joueur_2 = new Joueur("Joris", new Pokedex(Main.class.getClassLoader().getResourceAsStream("pokedex.json")));
 
-        joueur_1.getChoixPokemon(new Pokedex(Main.class.getClassLoader().getResourceAsStream("pokedex.json")));
-        joueur_2.getChoixPokemon(new Pokedex(Main.class.getClassLoader().getResourceAsStream("pokedex.json")));
+        joueur_1.getChoixPokemon();
+        joueur_2.getChoixPokemon();
 
         System.out.println(ConsoleColors.GREEN + "Le combat commence" + ConsoleColors.RESET);
         System.out.println("-----------------------------------------------");

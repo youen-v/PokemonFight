@@ -4,21 +4,27 @@ import java.util.Scanner;
 
 public class Joueur {
     private String name;
+    private Pokedex pokedex;
     private Pokemon choice_pokemon;
     private Integer essai = 0;
 
     public Joueur(){}
 
-    public Joueur(String nom){
+    public Joueur(String nom, Pokedex pokedex) {
         this.name = nom;
         this.choice_pokemon = null;
+        this.pokedex = pokedex;
     }
 
     public String getNom() {
         return name;
     }
 
-    public void getChoixPokemon(Pokedex pokedex) {
+    public Pokedex getPokedex() {
+        return pokedex;
+    }
+
+    public void getChoixPokemon() {
         if (choice_pokemon != null) {
             System.out.println("Vous avez déjà sélectionné " + choice_pokemon.getNom());
             return;
@@ -42,12 +48,16 @@ public class Joueur {
         } else {
             essaiJoueur(pokemonListe, choix);
             System.out.println("Aucun Pokémon n'a été choisi.");
-            getChoixPokemon(pokedex);
+            getChoixPokemon();
         }
     }
 
     public Pokemon getPokemonChoisi() {
         return choice_pokemon;
+    }
+
+    public void resetPokemonChoisi() {
+        this.choice_pokemon = null;
     }
 
     public void essaiJoueur (ArrayList listeResponse, int reponse) {
