@@ -15,9 +15,10 @@ public class Combat {
     }
 
     public void lancementTourDeJeu(){
-        for (tourDeJeu = 1; tourDeJeu<= 50; tourDeJeu++){
+        for (tourDeJeu = 1; tourDeJeu<= 100; tourDeJeu++){
             new TourDeJeu(joueur1, joueur2, tourDeJeu);
         }
+        new Menu();
     }
 
     public Attaque choixAttaque(Joueur joueur){
@@ -115,8 +116,13 @@ public class Combat {
     public void finCombat(Joueur joueurPerdant, Joueur joueurGagnant){
         boolean etatPokemon = joueurPerdant.getPokemonChoisi().estKo();
         if (etatPokemon) {
-            System.out.println("Fin du combat : Vainqueur - " + joueurGagnant.getNom() + " avec " + joueurGagnant.getPokemonChoisi().getNom());
-            System.exit(0);
+            if (joueurPerdant.getPokedex().getPokedex().size() >= 0 ){
+                joueurPerdant.resetPokemonChoisi();
+                joueurPerdant.getChoixPokemon();
+            } else {
+                System.out.println("Fin du combat : Vainqueur - " + joueurGagnant.getNom() + " avec " + joueurGagnant.getPokemonChoisi().getNom());
+                new Menu();
+            }
         }
     }
 }

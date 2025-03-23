@@ -64,6 +64,7 @@ public class Pokemon {
     }
 
     public boolean estKo() {
+
         return pv <= 0;
     }
 
@@ -77,6 +78,10 @@ public class Pokemon {
 
     public Niveau getNiveau() {
         return niveau;
+    }
+
+    public void setNiveau(Niveau niveau) {
+        this.niveau = niveau;
     }
 
     @Override

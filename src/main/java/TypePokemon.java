@@ -100,7 +100,7 @@ public class TypePokemon {
             // Si pas de faiblesse recherche de résistance
             if (getResistances().contains(pokemonAttaque.getAttaqueSelectionner().getType()) &&
             getResistances().contains(pokemonAttaque.getTypePokemon().getType())){
-                return degat - (def*2);
+                return degat - Double.valueOf(def*1.2).intValue();
             } else if (getResistances().contains(pokemonAttaque.getTypePokemon().getType())) {
                 return degat - def;
             }
