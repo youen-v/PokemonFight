@@ -2,7 +2,17 @@
   "pokedex": [
     {
       "name": "Pikachu",
-      "type": "Électrique",
+      "type": {
+        "type": "Électrique",
+        "faiblesse": [
+          "Sol"
+        ],
+        "resistance": [
+          "Électrique",
+          "Vol",
+          "Acier"
+        ]
+      },
       "pv": 100,
       "liste-attaque": [
         {
@@ -18,31 +28,69 @@
           "utilisation": 5
         }
       ],
-      "defense": 30
+      "defense": 30,
+      "niveau": {
+        "lvl": 1,
+        "exp": 0
+      }
     },
     {
       "name": "Bulbizarre",
-      "type": "Plante",
+      "type": {
+        "type": "Plante",
+        "faiblesse": [
+          "Feu",
+          "Glace",
+          "Poison",
+          "Vol",
+          "Insecte"
+        ],
+        "resistance": [
+          "Eau",
+          "Plante",
+          "Sol",
+          "Électrique"
+        ]
+      },
       "pv": 120,
       "liste-attaque": [
         {
           "nom": "Charge",
           "degat": 40,
-          "type": "Plante",
+          "type": "Normal",
           "utilisation": 5
         },
         {
           "nom": "Fouet-Liane",
           "degat": 60,
           "type": "Plante",
-          "utilisation": 5
+          "utilisation": 1
         }
       ],
-      "defense": 35
+      "defense": 35,
+      "niveau": {
+        "lvl": 1,
+        "exp": 0
+      }
     },
     {
       "name": "Salamèche",
-      "type": "Feu",
+      "type": {
+        "type": "Feu",
+        "faiblesse": [
+          "Eau",
+          "Roche",
+          "Sol"
+        ],
+        "resistance": [
+          "Feu",
+          "Plante",
+          "Glace",
+          "Insecte",
+          "Acier",
+          "Fée"
+        ]
+      },
       "pv": 110,
       "liste-attaque": [
         {
@@ -58,11 +106,27 @@
           "utilisation": 5
         }
       ],
-      "defense": 25
+      "defense": 25,
+      "niveau": {
+        "lvl": 1,
+        "exp": 0
+      }
     },
     {
       "name": "Carapuce",
-      "type": "Eau",
+      "type": {
+        "type": "Eau",
+        "faiblesse": [
+          "Électrique",
+          "Plante"
+        ],
+        "resistance": [
+          "Feu",
+          "Eau",
+          "Glace",
+          "Acier"
+        ]
+      },
       "pv": 115,
       "liste-attaque": [
         {
@@ -78,31 +142,56 @@
           "utilisation": 5
         }
       ],
-      "defense": 40
+      "defense": 40,
+      "niveau": {
+        "lvl": 1,
+        "exp": 0
+      }
     },
     {
       "name": "Rondoudou",
-      "type": "Normal",
+      "type": {
+        "type": "Normal",
+        "faiblesse": [
+          "Combat"
+        ],
+        "resistance": []
+      },
       "pv": 130,
       "liste-attaque": [
         {
-          "nom": "Ecras'Face",
+          "nom": "Écras'Face",
           "degat": 40,
           "type": "Normal",
           "utilisation": 5
         },
         {
-          "nom": "Echo",
+          "nom": "Écho",
           "degat": 50,
           "type": "Normal",
           "utilisation": 5
         }
       ],
-      "defense": 20
+      "defense": 20,
+      "niveau": {
+        "lvl": 1,
+        "exp": 0
+      }
     },
     {
       "name": "Mewtwo",
-      "type": "Psy",
+      "type": {
+        "type": "Psy",
+        "faiblesse": [
+          "Insecte",
+          "Spectre",
+          "Ténèbres"
+        ],
+        "resistance": [
+          "Combat",
+          "Psy"
+        ]
+      },
       "pv": 180,
       "liste-attaque": [
         {
@@ -118,11 +207,27 @@
           "utilisation": 5
         }
       ],
-      "defense": 50
+      "defense": 50,
+      "niveau": {
+        "lvl": 1,
+        "exp": 0
+      }
     },
     {
       "name": "Roucool",
-      "type": "Vol",
+      "type": {
+        "type": "Vol",
+        "faiblesse": [
+          "Électrique",
+          "Glace",
+          "Roche"
+        ],
+        "resistance": [
+          "Plante",
+          "Combat",
+          "Insecte"
+        ]
+      },
       "pv": 70,
       "liste-attaque": [
         {
@@ -138,11 +243,21 @@
           "utilisation": 5
         }
       ],
-      "defense": 20
+      "defense": 20,
+      "niveau": {
+        "lvl": 1,
+        "exp": 0
+      }
     },
     {
       "name": "Rattata",
-      "type": "Normal",
+      "type": {
+        "type": "Normal",
+        "faiblesse": [
+          "Combat"
+        ],
+        "resistance": []
+      },
       "pv": 60,
       "liste-attaque": [
         {
@@ -158,11 +273,28 @@
           "utilisation": 5
         }
       ],
-      "defense": 15
+      "defense": 15,
+      "niveau": {
+        "lvl": 1,
+        "exp": 0
+      }
     },
     {
       "name": "Nosferapti",
-      "type": "Poison",
+      "type": {
+        "type": "Poison",
+        "faiblesse": [
+          "Sol",
+          "Psy"
+        ],
+        "resistance": [
+          "Plante",
+          "Combat",
+          "Poison",
+          "Insecte",
+          "Fée"
+        ]
+      },
       "pv": 80,
       "liste-attaque": [
         {
@@ -178,27 +310,47 @@
           "utilisation": 5
         }
       ],
-      "defense": 20
+      "defense": 20,
+      "niveau": {
+        "lvl": 1,
+        "exp": 0
+      }
     },
     {
       "name": "Mimitoss",
-      "type": "Insecte/Poison",
+      "type": {
+        "type": "Insecte",
+        "faiblesse": [
+          "Feu",
+          "Vol",
+          "Roche"
+        ],
+        "resistance": [
+          "Plante",
+          "Combat",
+          "Sol"
+        ]
+      },
       "pv": 70,
       "liste-attaque": [
         {
           "nom": "Poudre Toxique",
           "degat": 40,
-          "type": "Insecte/Poison",
+          "type": "Insecte",
           "utilisation": 5
         },
         {
           "nom": "Acide",
           "degat": 30,
-          "type": "Insecte/Poison",
+          "type": "Insecte",
           "utilisation": 5
         }
       ],
-      "defense": 18
+      "defense": 18,
+      "niveau": {
+        "lvl": 1,
+        "exp": 0
+      }
     }
   ]
 }

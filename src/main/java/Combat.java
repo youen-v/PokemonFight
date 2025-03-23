@@ -1,12 +1,13 @@
 import consoleColors.ConsoleColors;
-
 import java.util.*;
 
 public class Combat {
     public Joueur joueur1;
     public Joueur joueur2;
     public Integer tourDeJeu;
-    private final List<String> listeAttaqueLongue = List.of("Ultra-Laser", "Charge");
+    private final List<String> listeAttaqueLongue = List.of("Ultra-Laser");
+
+    public Combat() {}
 
     public Combat(Joueur joueur1, Joueur joueur2){
         this.joueur1 = joueur1;
@@ -39,16 +40,26 @@ public class Combat {
 
         System.out.println("Liste des attaques : ");
         for ( Attaque attaque : listeAttaque) {
-            System.out.println(idAttaque++ + " - " + attaque.getNom() + " degat : " + attaque.getDegat());
+            // Affichage de l'attaque seulement si elle est utilisable (A MODIFIER A L'AJOUT D'ITEMS QUI RAJOUTE DES UTILISATION)
+            if (attaque.getUtilisation() > 0){
+                System.out.println(idAttaque++ + " - " + attaque.getNom() + " degat : " + attaque.getDegat() + " Nombre d'utilisation : " + attaque.getUtilisation());
+            }
         }
 
         System.out.println("Veuillez choisir une Attaque (entrez son numéro) :");
         int choix = scanner.nextInt();
-       
+
         // Vérification de la validité du choix
         try {
             Attaque attaqueChoisie = listeAttaque.get(choix - 1);
             joueur.getPokemonChoisi().setAttaqueSelectionner(attaqueChoisie);
+            if (attaqueChoisie.getUtilisation() > 0){
+                attaqueChoisie.utilisationAttaque(attaqueChoisie.getUtilisation());
+            } else {
+                System.out.println("Vous n'avez plus d'utilisation pour cette Attaque !");
+                throw new RuntimeException();
+            }
+            System.out.print("-----------------------------------------------\n");
             System.out.println(joueur.getPokemonChoisi().getNom() + " attaque " + attaqueChoisie);
             return attaqueChoisie;
         } catch (Exception e) {
@@ -59,34 +70,29 @@ public class Combat {
         return null;
     }
 
-    public int degatAttaquePokemon(Joueur joueurAtt, Joueur joueurDef, Integer tour){
+    public int degatAttaquePokemon(Pokemon pokemonAtt, Pokemon pokemonDef, Integer tour){
 
-        Attaque attaqueSelectionner = joueurAtt.getPokemonChoisi().getAttaqueSelectionner();
+        Attaque attaqueSelectionner = pokemonAtt.getAttaqueSelectionner();
         int degat = attaqueSelectionner.getDegat();
-        int def = joueurDef.getPokemonChoisi().getDefense();
+        int def = pokemonDef.getDefense();
 
-        String typeAtt = joueurAtt.getPokemonChoisi().getType();
-        String typeDef = joueurDef.getPokemonChoisi().getType();
+        int retourDegat = pokemonDef.getTypePokemon().calculFaiblesseOuRes(pokemonAtt, degat, def);
 
-        if ((typeAtt.equals("Feu") && typeDef.equals("Plante")) || (typeAtt.equals("Plante") && typeDef.equals("Eau")) || (typeAtt.equals("Eau") && typeDef.equals("Feu"))){
-            degat = degat * 2;
+        if (pendingAttaque(tour, pokemonAtt)) {
+            retourDegat = 0;
         }
 
-        if (pendingAttaque(tour, joueurAtt)) {
-            degat = 0;
-        }
-
-        degat = Math.max(degat - def, 0);
+        degat = Math.max(retourDegat, 0);
         System.out.print("-> Dégats : " + degat + "\n");
 
         return degat;
     }
 
-    public boolean pendingAttaque(Integer tour, Joueur compteurTour){
-        ArrayList<Integer> compteurTours = compteurTour.getPokemonChoisi().getCompteurTour();
-        Attaque nomAttaque = compteurTour.getPokemonChoisi().getAttaqueSelectionner();
+    public boolean pendingAttaque(Integer tour, Pokemon compteurTour){
+        ArrayList<Integer> compteurTours = compteurTour.getCompteurTour();
+        Attaque nomAttaque = compteurTour.getAttaqueSelectionner();
         if ( nomAttaque != null && listeAttaqueLongue.contains(nomAttaque.getNom())) {
-            compteurTour.getPokemonChoisi().setCompteurTour(tour);
+            compteurTour.setCompteurTour(tour);
             if (compteurTours.size() == 1){
                 return true;
             }
@@ -97,12 +103,12 @@ public class Combat {
         return false;
     }
 
-    public void pointDeVieRestant(Joueur pokemonAttaque, Joueur pokemonDefense, Integer tour) {
+    public void pointDeVieRestant(Pokemon pokemonAttaque, Pokemon pokemonDefense, Integer tour) {
         int degatAttaque = degatAttaquePokemon(pokemonAttaque, pokemonDefense, tour);
-        int pvPokemon = pokemonDefense.getPokemonChoisi().getPv();
-        pokemonDefense.getPokemonChoisi().setPv(pvPokemon - degatAttaque);
-        if (!listeAttaqueLongue.contains(pokemonAttaque.getPokemonChoisi().getAttaqueSelectionner().getNom())) {
-            pokemonAttaque.getPokemonChoisi().setAttaqueSelectionner(null);
+        int pvPokemon = pokemonDefense.getPv();
+        pokemonDefense.setPv(pvPokemon - degatAttaque);
+        if (!listeAttaqueLongue.contains(pokemonAttaque.getAttaqueSelectionner().getNom())) {
+            pokemonAttaque.setAttaqueSelectionner(null);
         }
     }
 
