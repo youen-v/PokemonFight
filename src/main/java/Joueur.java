@@ -3,9 +3,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Joueur {
-    private final String name;
+    private String name;
     private Pokemon choice_pokemon;
     private Integer essai = 0;
+
+    public Joueur(){}
 
     public Joueur(String nom){
         this.name = nom;

@@ -5,24 +5,27 @@ import java.util.ArrayList;
 
 public class Pokemon {
     private final String name;
-    private final String type;
+    private TypePokemon type;
     private int pv;
     private ArrayList<Attaque> listeAttaque;
     private Attaque attaqueSelectionner;
     private int defense;
+    private Niveau niveau;
     private ArrayList<Integer> compteurTour = new ArrayList<>();
 
     @JsonCreator
     public Pokemon(
             @JsonProperty("name") String name,
-            @JsonProperty("type") String type,
+            @JsonProperty("type") TypePokemon type,
             @JsonProperty("pv") int pv,
             @JsonProperty("liste-attaque") ArrayList<Attaque> listeAttaque,
-            @JsonProperty("defense") int defense) {
+            @JsonProperty("niveau") Niveau niveau,
+            @JsonProperty("defense") int defense ){
         this.name = name;
         this.type = type;
         this.pv = pv;
         this.listeAttaque = listeAttaque;
+        this.niveau = niveau;
         this.defense = defense;
     }
 
@@ -30,7 +33,7 @@ public class Pokemon {
         return name;
     }
 
-    public String getType() {
+    public TypePokemon getTypePokemon() {
         return type;
     }
 
@@ -70,6 +73,10 @@ public class Pokemon {
 
     public void setCompteurTour(Integer tour) {
         this.compteurTour.add(tour);
+    }
+
+    public Niveau getNiveau() {
+        return niveau;
     }
 
     @Override

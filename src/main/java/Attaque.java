@@ -31,8 +31,12 @@ public class Attaque {
         return utilisation;
     }
 
-    public void setUtilisation(int utilisation) {
-        this.utilisation = utilisation;
+    public int setUtilisation(int utilisation) {
+        return this.utilisation = Math.max(utilisation, 0);
+    }
+
+    public int utilisationAttaque(int utilisation) {
+        return setUtilisation((utilisation - 1));
     }
 
     @Override
