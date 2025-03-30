@@ -6,17 +6,15 @@ public class PokemonTest {
     @Test
     void testCreationPokemon() {
         ArrayList<Attaque> attaques = new ArrayList<>();
-        Pokemon pikachu = new Pokemon("Pikachu", new TypePokemon(), 100, attaques, new Niveau(), 10);
+        Pokemon pikachu = new Pokemon("Pikachu", new TypePokemon(), new PointDeVieStat(), attaques, new Niveau(), new DefenseStat(), new AttaqueStat());
 
         assertEquals("Pikachu", pikachu.getNom());
-        assertEquals(100, pikachu.getPv());
-        assertEquals(10, pikachu.getDefense());
         assertNotNull(pikachu.getListeAttaque());
     }
 
     @Test
     void testSetPv() {
-        Pokemon pikachu = new Pokemon("Pikachu", new TypePokemon(), 100, new ArrayList<>(), new Niveau(), 10);
+        Pokemon pikachu = new Pokemon("Pikachu", new TypePokemon(), new PointDeVieStat(), new ArrayList<>(), new Niveau(), new DefenseStat(), new AttaqueStat());
 
         pikachu.setPv(50);
         assertEquals(50, pikachu.getPv());
@@ -27,7 +25,7 @@ public class PokemonTest {
 
     @Test
     void testEstKo() {
-        Pokemon pikachu = new Pokemon("Pikachu", new TypePokemon(), 100, new ArrayList<>(), new Niveau(), 10);
+        Pokemon pikachu = new Pokemon("Pikachu", new TypePokemon(), new PointDeVieStat(), new ArrayList<>(), new Niveau(), new DefenseStat(), new AttaqueStat());
 
         assertFalse(pikachu.estKo());
 
@@ -37,7 +35,7 @@ public class PokemonTest {
 
     @Test
     void testSetCompteurTour() {
-        Pokemon pikachu = new Pokemon("Pikachu", new TypePokemon(), 100, new ArrayList<>(), new Niveau(), 10);
+        Pokemon pikachu = new Pokemon("Pikachu", new TypePokemon(), new PointDeVieStat(), new ArrayList<>(), new Niveau(), new DefenseStat(), new AttaqueStat());
 
         pikachu.setCompteurTour(1);
         pikachu.setCompteurTour(2);
@@ -49,7 +47,7 @@ public class PokemonTest {
 
     @Test
     void testSetAttaqueSelectionner() {
-        Pokemon pikachu = new Pokemon("Pikachu", new TypePokemon(), 100, new ArrayList<>(), new Niveau(), 10);
+        Pokemon pikachu = new Pokemon("Pikachu", new TypePokemon(), new PointDeVieStat(), new ArrayList<>(), new Niveau(), new DefenseStat(), new AttaqueStat());
 
         Attaque tonnerre = new Attaque("Tonnerre", 40, "Electrique", 2);
         pikachu.setAttaqueSelectionner(tonnerre);
@@ -59,7 +57,7 @@ public class PokemonTest {
 
     @Test
     void testToString() {
-        Pokemon pikachu = new Pokemon("Pikachu", new TypePokemon(), 100, new ArrayList<>(), new Niveau(), 10);
+        Pokemon pikachu = new Pokemon("Pikachu", new TypePokemon(), new PointDeVieStat(), new ArrayList<>(), new Niveau(), new DefenseStat(), new AttaqueStat());
         assertEquals("Pikachu PV : 100", pikachu.toString());
     }
 }

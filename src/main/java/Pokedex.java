@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class Pokedex {
     public ArrayList<Pokemon> pokedex;
+    private Integer maxPokedex = 6;
 
     public Pokedex(InputStream inputStream) {
         ObjectMapper mapper = new ObjectMapper();
@@ -19,7 +20,11 @@ public class Pokedex {
 
     @JsonCreator
     public Pokedex(@JsonProperty("pokedex") ArrayList<Pokemon> pokedex) {
-        this.pokedex = pokedex;
+        if (pokedex.size() > maxPokedex) {
+            this.pokedex = new ArrayList<>(pokedex.subList(0, 6));
+        } else {
+            this.pokedex = pokedex;
+        }
     }
 
     public ArrayList<Pokemon> getPokedex() {

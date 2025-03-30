@@ -6,10 +6,11 @@ import java.util.ArrayList;
 public class Pokemon {
     private final String name;
     private TypePokemon type;
-    private int pv;
+    private PointDeVieStat pv;
     private ArrayList<Attaque> listeAttaque;
     private Attaque attaqueSelectionner;
-    private int defense;
+    private DefenseStat defense;
+    private AttaqueStat attaque;
     private Niveau niveau;
     private ArrayList<Integer> compteurTour = new ArrayList<>();
 
@@ -17,16 +18,22 @@ public class Pokemon {
     public Pokemon(
             @JsonProperty("name") String name,
             @JsonProperty("type") TypePokemon type,
-            @JsonProperty("pv") int pv,
+            @JsonProperty("pv") PointDeVieStat pv,
             @JsonProperty("liste-attaque") ArrayList<Attaque> listeAttaque,
             @JsonProperty("niveau") Niveau niveau,
-            @JsonProperty("defense") int defense ){
+            @JsonProperty("defense") DefenseStat defense,
+            @JsonProperty("attaque") AttaqueStat attaque){
         this.name = name;
         this.type = type;
         this.pv = pv;
         this.listeAttaque = listeAttaque;
         this.niveau = niveau;
         this.defense = defense;
+        this.attaque = attaque;
+        getAttaque().initStatattaque(this);
+        getDefense().initStatdefense(this);
+        getPv().initStatpointDeVie(this);
+
     }
 
     public String getNom() {
@@ -37,13 +44,13 @@ public class Pokemon {
         return type;
     }
 
-    public int getPv() {
+    public PointDeVieStat getPv() {
         return pv;
     }
 
     public void setPv(int pv) {
         pv = Math.max(pv, 0);
-        this.pv = pv;
+        this.pv.setStatpointDeVie(pv);
     }
 
     public ArrayList<Attaque> getListeAttaque() {
@@ -59,13 +66,17 @@ public class Pokemon {
         this.attaqueSelectionner = attaqueSelectionner;
     }
 
-    public int getDefense() {
+    public AttaqueStat getAttaque() {
+        return attaque;
+    }
+
+    public DefenseStat getDefense() {
         return defense;
     }
 
     public boolean estKo() {
 
-        return pv <= 0;
+        return pv.getStatpointDeVie() <= 0;
     }
 
     public ArrayList<Integer> getCompteurTour() {
