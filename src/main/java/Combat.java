@@ -7,7 +7,9 @@ public class Combat {
     public Integer tourDeJeu;
     private final List<String> listeAttaqueLongue = List.of("Ultra-Laser");
 
-    public Combat() {}
+    public Combat() {
+        new Menu().afficherMenu();
+    }
 
     public Combat(Joueur joueur1, Joueur joueur2){
         this.joueur1 = joueur1;
@@ -18,7 +20,13 @@ public class Combat {
         for (tourDeJeu = 1; tourDeJeu<= 100; tourDeJeu++){
             new TourDeJeu(joueur1, joueur2, tourDeJeu);
         }
-        new Menu();
+        System.out.println("Bienvenue dans le Menu");
+        new Menu().afficherMenu();
+
+    }
+
+    public int sousMenu(TourDeJeu tour, Joueur joueur){
+        return new Menu().sousMenu(tour, joueur);
     }
 
     public Attaque choixAttaque(Joueur joueur){

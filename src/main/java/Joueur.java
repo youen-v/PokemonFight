@@ -25,16 +25,19 @@ public class Joueur {
     }
 
     public void getChoixPokemon() {
+
         if (choice_pokemon != null) {
-            System.out.println("Vous avez déjà sélectionné " + choice_pokemon.getNom());
-            return;
+            choice_pokemon = null;
+            System.out.println("Changer votre pokemon au combat :");
         }
 
         ArrayList<Pokemon> pokemonListe = pokedex.getPokedex();
 
         System.out.println("Liste des Pokémon disponibles :");
         for (int i = 0; i < pokemonListe.size(); i++) {
-            System.out.println((i + 1) + ": " + pokemonListe.get(i).getNom());
+            if (!pokemonListe.get(i).estKo()){
+                System.out.println((i + 1) + ": " + pokemonListe.get(i).getNom());
+            }
         }
 
         System.out.println("Veuillez choisir un Pokémon (entrez le numéro) :");
@@ -44,7 +47,6 @@ public class Joueur {
         if (choix >= 0 && choix < pokemonListe.size()) {
             choice_pokemon = pokemonListe.get(choix);
             System.out.println("\n---------------------------------------------------");
-            pokemonListe.remove(choix);
         } else {
             essaiJoueur(pokemonListe, choix);
             System.out.println("Aucun Pokémon n'a été choisi.");

@@ -91,8 +91,16 @@ public class Pokemon {
         return niveau;
     }
 
-    public void setNiveau(Niveau niveau) {
-        this.niveau = niveau;
+    public void getInfos(){
+        System.out.println("\n----------------------------------");
+        System.out.println("| Nom :          " + getNom());
+        System.out.println("| Niveau :       " + getNiveau().getLevel());
+        System.out.println("| Expérience :   " + getNiveau().getExperience());
+        System.out.println("| Type :         " + getTypePokemon().getType());
+        System.out.println("| Point de vie : " + getPv().toString());
+        System.out.println("| Attaque :      " + getAttaque().getStatattaque());
+        System.out.println("| Défense :      " + getDefense().getStatdefense());
+        System.out.println("----------------------------------\n");
     }
 
     @Override

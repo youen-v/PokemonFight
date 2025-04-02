@@ -1,13 +1,12 @@
 import consoleColors.ConsoleColors;
+
+import java.util.Optional;
 import java.util.Scanner;
 
 public class Menu {
     private Integer choix;
 
-    public Menu() {
-        System.out.println("Bienvenue dans le Menu");
-        afficherMenu();
-    }
+    public Menu() {}
 
     public void afficherMenu(){
         Scanner scanner = new Scanner(System.in);
@@ -71,5 +70,49 @@ public class Menu {
 
     public Integer getChoix() {
         return choix;
+    }
+
+    // Sous Menu
+    public int sousMenu(TourDeJeu tour, Joueur joueur){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Menu Pokemon : ");
+        System.out.print("| 1. Choix attaque |");
+        System.out.println(" - | 2. Infos pokemon |");
+        System.out.print("| 3. Pokedex  ");
+        System.out.println("     | - | 4. Inventaire    |");
+        System.out.print("| 5. Fuir |");
+        System.out.print("Votre choix : ");
+
+        switch (scanner.next()){
+            case "1" : {
+                tour.choixAttaque(joueur);
+                return 1;
+            }
+            case "2" : {
+                joueur.getPokemonChoisi().getInfos();
+                try {
+                    sousMenu(tour, joueur);
+                } catch (Exception e) {
+                    System.out.println(ConsoleColors.RED + "Erreur : " + e.getMessage());
+                }
+                return 2;
+            }
+            case "3" : {
+                // Attention appel la methode pour faire des dégâts
+                // changer le remove du pokemon a seulement si KO et pas a la sélèction
+                joueur.getChoixPokemon();
+                return 3;
+            }
+            case "4" : {
+                System.out.println("Mon inventaire");
+                return 4;
+            }
+            case "5" : {
+                System.out.println("Vous fuyez le combat à toute jambes");
+                System.exit(0);
+                return 5;
+            }
+        }
+        return 0;
     }
 }
