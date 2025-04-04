@@ -87,26 +87,27 @@ public class TypePokemon {
         this.resistance = resistance;
     }
 
-    public Integer calculFaiblesseOuRes(Pokemon pokemonAttaque, int degat, int def) {
+    public Double calculFaiblesseOuRes(Pokemon pokemonAttaque) {
         // Recherche de faiblesse dans le type d'attaque et du pokemon
         if (getFaiblesses().contains(pokemonAttaque.getAttaqueSelectionner().getType()) &&
                         getFaiblesses().contains(pokemonAttaque.getTypePokemon().getType())
         ) {
-            int retourDegat = (((2 * pokemonAttaque.getNiveau().getLevel() / 5 + 2) * degat ) - def + 2);
-            return Double.valueOf((retourDegat * 1.5)).intValue();
-        }else if (getFaiblesses().contains(pokemonAttaque.getTypePokemon().getType())){
-            return (((2 * pokemonAttaque.getNiveau().getLevel() / 5 + 2) * degat ) - def + 2);
-        } else {
-            // Si pas de faiblesse recherche de résistance
-            if (getResistances().contains(pokemonAttaque.getAttaqueSelectionner().getType()) &&
-            getResistances().contains(pokemonAttaque.getTypePokemon().getType())){
-                return degat - Double.valueOf(def*1.2).intValue();
-            } else if (getResistances().contains(pokemonAttaque.getTypePokemon().getType())) {
-                return degat - def;
+            if (getFaiblesses().contains(pokemonAttaque.getTypePokemon().getType())){
+                return (2.0);
             }
-            // Si aucun des deux retour de dégât classique
-            return degat;
+            return (1.5);
         }
+
+        // Si pas de faiblesse recherche de résistance
+        if (getResistances().contains(pokemonAttaque.getAttaqueSelectionner().getType()) &&
+                getResistances().contains(pokemonAttaque.getTypePokemon().getType())){
+            if (getResistances().contains(pokemonAttaque.getTypePokemon().getType())) {
+                return (0.25);
+            }
+            return (0.5);
+        }
+        // aucune faiblesse ni résistance
+        return (1.0);
     }
 
 }

@@ -7,7 +7,9 @@ public class Combat {
     public Integer tourDeJeu;
     private final List<String> listeAttaqueLongue = List.of("Ultra-Laser");
 
-    public Combat() {}
+    public Combat() {
+        new Menu().afficherMenu();
+    }
 
     public Combat(Joueur joueur1, Joueur joueur2){
         this.joueur1 = joueur1;
@@ -18,7 +20,13 @@ public class Combat {
         for (tourDeJeu = 1; tourDeJeu<= 100; tourDeJeu++){
             new TourDeJeu(joueur1, joueur2, tourDeJeu);
         }
-        new Menu();
+        System.out.println("Bienvenue dans le Menu");
+        new Menu().afficherMenu();
+
+    }
+
+    public int sousMenu(TourDeJeu tour, Joueur joueur){
+        return new Menu().sousMenu(tour, joueur);
     }
 
     public Attaque choixAttaque(Joueur joueur){
@@ -75,9 +83,11 @@ public class Combat {
 
         Attaque attaqueSelectionner = pokemonAtt.getAttaqueSelectionner();
         int degat = attaqueSelectionner.getDegat();
-        int def = pokemonDef.getDefense();
+        int def = pokemonDef.getDefense().getStatdefense();
 
-        int retourDegat = pokemonDef.getTypePokemon().calculFaiblesseOuRes(pokemonAtt, degat, def);
+        int calculDegat = (((2 * pokemonAtt.getNiveau().getLevel() / 5 + 2) * degat * pokemonAtt.getAttaque().getStatattaque() / def ) + 2);
+        double retourFaiblOuRes = pokemonDef.getTypePokemon().calculFaiblesseOuRes(pokemonAtt);
+        int retourDegat = (int) (calculDegat *  retourFaiblOuRes);
 
         if (pendingAttaque(tour, pokemonAtt)) {
             retourDegat = 0;
@@ -106,23 +116,28 @@ public class Combat {
 
     public void pointDeVieRestant(Pokemon pokemonAttaque, Pokemon pokemonDefense, Integer tour) {
         int degatAttaque = degatAttaquePokemon(pokemonAttaque, pokemonDefense, tour);
-        int pvPokemon = pokemonDefense.getPv();
+        int pvPokemon = pokemonDefense.getPv().getStatpointDeVie();
         pokemonDefense.setPv(pvPokemon - degatAttaque);
         if (!listeAttaqueLongue.contains(pokemonAttaque.getAttaqueSelectionner().getNom())) {
             pokemonAttaque.setAttaqueSelectionner(null);
         }
     }
 
+    public void pokemonKo(Joueur pokemonKo, Joueur pokemonVainqueur) {
+        if (pokemonKo.getPokemonChoisi().estKo() && !pokemonKo.getPokedex().getPokedex().isEmpty() ){
+            new Niveau().calculerExperienceGagnee(pokemonVainqueur.getPokemonChoisi(), pokemonKo.getPokemonChoisi());
+            pokemonKo.resetPokemonChoisi();
+            pokemonKo.getChoixPokemon();
+        } else {
+            finCombat(pokemonKo, pokemonVainqueur);
+        }
+    }
+
     public void finCombat(Joueur joueurPerdant, Joueur joueurGagnant){
         boolean etatPokemon = joueurPerdant.getPokemonChoisi().estKo();
-        if (etatPokemon) {
-            if (joueurPerdant.getPokedex().getPokedex().size() >= 0 ){
-                joueurPerdant.resetPokemonChoisi();
-                joueurPerdant.getChoixPokemon();
-            } else {
-                System.out.println("Fin du combat : Vainqueur - " + joueurGagnant.getNom() + " avec " + joueurGagnant.getPokemonChoisi().getNom());
-                new Menu();
-            }
+        if (etatPokemon && joueurPerdant.getPokedex().getPokedex().isEmpty()) {
+            System.out.println("Fin du combat : Vainqueur - " + joueurGagnant.getNom() + " avec " + joueurGagnant.getPokemonChoisi().getNom());
+            new Menu();
         }
     }
 }

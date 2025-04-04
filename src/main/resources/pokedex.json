@@ -28,6 +28,7 @@
           "utilisation": 5
         }
       ],
+      "attaque": 20,
       "defense": 15,
       "niveau": {
         "lvl": 1,
@@ -64,13 +65,14 @@
           "nom": "Fouet-Liane",
           "degat": 60,
           "type": "Plante",
-          "utilisation": 1
+          "utilisation": 5
         }
       ],
+      "attaque": 20,
       "defense": 17,
       "niveau": {
-        "lvl": 1,
-        "exp": 0
+        "lvl": 100,
+        "exp": 106150
       }
     },
     {
@@ -106,9 +108,10 @@
           "utilisation": 5
         }
       ],
+      "attaque": 20,
       "defense": 13,
       "niveau": {
-        "lvl": 1,
+        "lvl": 100,
         "exp": 0
       }
     },
@@ -142,6 +145,7 @@
           "utilisation": 5
         }
       ],
+      "attaque": 20,
       "defense": 20,
       "niveau": {
         "lvl": 1,
@@ -172,6 +176,7 @@
           "utilisation": 5
         }
       ],
+      "attaque": 20,
       "defense": 10,
       "niveau": {
         "lvl": 1,
@@ -207,6 +212,7 @@
           "utilisation": 5
         }
       ],
+      "attaque": 20,
       "defense": 25,
       "niveau": {
         "lvl": 1,
@@ -243,6 +249,7 @@
           "utilisation": 5
         }
       ],
+      "attaque": 20,
       "defense": 10,
       "niveau": {
         "lvl": 1,
@@ -273,6 +280,7 @@
           "utilisation": 5
         }
       ],
+      "attaque": 20,
       "defense": 8,
       "niveau": {
         "lvl": 1,
@@ -310,6 +318,7 @@
           "utilisation": 5
         }
       ],
+      "attaque": 20,
       "defense": 10,
       "niveau": {
         "lvl": 1,
@@ -346,6 +355,7 @@
           "utilisation": 5
         }
       ],
+      "attaque": 20,
       "defense": 9,
       "niveau": {
         "lvl": 1,

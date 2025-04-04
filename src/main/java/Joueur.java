@@ -5,15 +5,17 @@ import java.util.Scanner;
 public class Joueur {
     private String name;
     private Pokedex pokedex;
+    private Inventaire inventaire;
     private Pokemon choice_pokemon;
     private Integer essai = 0;
 
     public Joueur(){}
 
-    public Joueur(String nom, Pokedex pokedex) {
+    public Joueur(String nom, Pokedex pokedex, Inventaire inventaire) {
         this.name = nom;
         this.choice_pokemon = null;
         this.pokedex = pokedex;
+        this.inventaire = inventaire;
     }
 
     public String getNom() {
@@ -24,17 +26,28 @@ public class Joueur {
         return pokedex;
     }
 
+    public Inventaire getInventaire() {
+        return inventaire;
+    }
+
+    public void setInventaire(Inventaire inventaire) {
+        this.inventaire = inventaire;
+    }
+
     public void getChoixPokemon() {
+
         if (choice_pokemon != null) {
-            System.out.println("Vous avez déjà sélectionné " + choice_pokemon.getNom());
-            return;
+            choice_pokemon = null;
+            System.out.println("Changer votre pokemon au combat :");
         }
 
         ArrayList<Pokemon> pokemonListe = pokedex.getPokedex();
 
         System.out.println("Liste des Pokémon disponibles :");
         for (int i = 0; i < pokemonListe.size(); i++) {
-            System.out.println((i + 1) + ": " + pokemonListe.get(i).getNom());
+            if (!pokemonListe.get(i).estKo()){
+                System.out.println((i + 1) + ": " + pokemonListe.get(i).getNom());
+            }
         }
 
         System.out.println("Veuillez choisir un Pokémon (entrez le numéro) :");
@@ -44,7 +57,6 @@ public class Joueur {
         if (choix >= 0 && choix < pokemonListe.size()) {
             choice_pokemon = pokemonListe.get(choix);
             System.out.println("\n---------------------------------------------------");
-            pokemonListe.remove(choix);
         } else {
             essaiJoueur(pokemonListe, choix);
             System.out.println("Aucun Pokémon n'a été choisi.");
