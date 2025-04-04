@@ -9,11 +9,11 @@ public class TourDeJeu extends Combat{
         System.out.println(joueurAtt.getNom());
         System.out.println("avec " + joueurAtt.getPokemonChoisi().getNom() + " (niv." + joueurAtt.getPokemonChoisi().getNiveau().getLevel()+ ")");
         // A remplacer par une barre de vie
-        System.out.println(joueurAtt.getPokemonChoisi().getPv());
+        joueurAtt.getPokemonChoisi().getPv().afficherBarre();
         System.out.print("-----------------------------------------------\n");
         //MENU SECONDAIRE
         int returnSM = sousMenu(this, joueurAtt);
-        if(!(returnSM == 3)) {
+        if(returnSM == 1) {
             pointDeVieRestant(joueurAtt.getPokemonChoisi(), joueurDef.getPokemonChoisi(), tour);
 
             System.out.println("\n-----------------------------------------------\n");

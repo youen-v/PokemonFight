@@ -5,15 +5,17 @@ import java.util.Scanner;
 public class Joueur {
     private String name;
     private Pokedex pokedex;
+    private Inventaire inventaire;
     private Pokemon choice_pokemon;
     private Integer essai = 0;
 
     public Joueur(){}
 
-    public Joueur(String nom, Pokedex pokedex) {
+    public Joueur(String nom, Pokedex pokedex, Inventaire inventaire) {
         this.name = nom;
         this.choice_pokemon = null;
         this.pokedex = pokedex;
+        this.inventaire = inventaire;
     }
 
     public String getNom() {
@@ -22,6 +24,14 @@ public class Joueur {
 
     public Pokedex getPokedex() {
         return pokedex;
+    }
+
+    public Inventaire getInventaire() {
+        return inventaire;
+    }
+
+    public void setInventaire(Inventaire inventaire) {
+        this.inventaire = inventaire;
     }
 
     public void getChoixPokemon() {
