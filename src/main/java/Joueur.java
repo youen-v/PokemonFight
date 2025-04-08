@@ -54,12 +54,12 @@ public class Joueur {
         Scanner scanner = new Scanner(System.in);
         int choix = (scanner.nextInt() - 1);
 
-        if (choix >= 0 && choix < pokemonListe.size()) {
+        if (choix >= 0 && choix < pokemonListe.size() && !pokemonListe.get(choix).estKo()) {
             choice_pokemon = pokemonListe.get(choix);
             System.out.println("\n---------------------------------------------------");
         } else {
             essaiJoueur(pokemonListe, choix);
-            System.out.println("Aucun Pokémon n'a été choisi.");
+            System.out.println("Le Pokémon n'est pas disponible.");
             getChoixPokemon();
         }
     }

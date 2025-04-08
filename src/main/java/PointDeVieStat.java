@@ -1,3 +1,5 @@
+import consoleColors.ConsoleColors;
+
 public class PointDeVieStat {
     private int pointDeVie;
     private int pointDeVieMax;
@@ -33,18 +35,26 @@ public class PointDeVieStat {
     }
 
     public void afficherBarre() {
-        int nbBlocs = (int) ((double) pointDeVie / pointDeVieMax * 20);
+        int tailleBarre = 20;
+        int nbBlocs = (int) ((double) pointDeVie / pointDeVieMax * tailleBarre);
         StringBuilder barre = new StringBuilder();
+        String colorNivPv = "";
 
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < tailleBarre; i++) {
             if (i < nbBlocs) {
                 barre.append("█");
             } else {
                 barre.append("░");
             }
         }
-
-        System.out.printf("%-4s [%s] %d / %d\n", "PV", barre, pointDeVie, pointDeVieMax);
+        if (nbBlocs >= (tailleBarre*0.6)) {
+            colorNivPv = ConsoleColors.GREEN;
+        } else if (nbBlocs < (tailleBarre*0.6) && nbBlocs >= (tailleBarre*0.25)) {
+            colorNivPv = ConsoleColors.YELLOW;
+        } else if (nbBlocs < (tailleBarre*0.25)) {
+            colorNivPv = ConsoleColors.RED;
+        }
+        System.out.printf("%-4s "+ colorNivPv +"[%s]"+ ConsoleColors.RESET +" %d / %d\n", "PV", barre, pointDeVie, pointDeVieMax);
     }
 
 
