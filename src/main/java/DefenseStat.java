@@ -17,7 +17,7 @@ public class DefenseStat {
 
     public void progressionStatdefense(Pokemon pokemon) {
         int niveauDuPokemon = pokemon.getNiveau().getLevel();
-        int statDeBase = pokemon.getAttaque().getStatattaque();
+        int statDeBase = pokemon.getDefense().getStatdefense();
         double progression =  statDeBase + (niveauDuPokemon * 1.4);
         setStatdefense((int) progression);
     }

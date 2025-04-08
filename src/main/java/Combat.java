@@ -85,7 +85,9 @@ public class Combat {
         int degat = attaqueSelectionner.getDegat();
         int def = pokemonDef.getDefense().getStatdefense();
 
-        int calculDegat = (((2 * pokemonAtt.getNiveau().getLevel() / 5 + 2) * degat * pokemonAtt.getAttaque().getStatattaque() / def ) + 2);
+        Random rand = new Random();
+        double facteurRand = 0.85 + (rand.nextDouble() * 0.15);
+        double calculDegat = (((double) ((2 * pokemonAtt.getNiveau().getLevel() / 5 + 2) * degat * pokemonAtt.getAttaque().getStatattaque()) / def ) + 2) * facteurRand;
         double retourFaiblOuRes = pokemonDef.getTypePokemon().calculFaiblesseOuRes(pokemonAtt);
         int retourDegat = (int) (calculDegat *  retourFaiblOuRes);
 

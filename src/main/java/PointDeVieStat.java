@@ -24,7 +24,7 @@ public class PointDeVieStat {
 
     public void progressionStatpointDeVie(Pokemon pokemon) {
         int niveauDuPokemon = pokemon.getNiveau().getLevel();
-        int statDeBase = pokemon.getAttaque().getStatattaque();
+        int statDeBase = pokemon.getPv().getStatpointDeVie();
         double progression =  (statDeBase * niveauDuPokemon ) * 1.4;
         setStatpointDeVie((int) progression);
     }

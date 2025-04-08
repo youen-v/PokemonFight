@@ -28,7 +28,7 @@
           "utilisation": 5
         }
       ],
-      "attaque": 20,
+      "attaque": 10,
       "defense": 15,
       "niveau": {
         "lvl": 1,
@@ -68,7 +68,7 @@
           "utilisation": 5
         }
       ],
-      "attaque": 20,
+      "attaque": 10,
       "defense": 17,
       "niveau": {
         "lvl": 100,
@@ -108,7 +108,7 @@
           "utilisation": 5
         }
       ],
-      "attaque": 20,
+      "attaque": 10,
       "defense": 13,
       "niveau": {
         "lvl": 100,
@@ -145,7 +145,7 @@
           "utilisation": 5
         }
       ],
-      "attaque": 20,
+      "attaque": 10,
       "defense": 20,
       "niveau": {
         "lvl": 1,
@@ -176,7 +176,7 @@
           "utilisation": 5
         }
       ],
-      "attaque": 20,
+      "attaque": 10,
       "defense": 10,
       "niveau": {
         "lvl": 1,
@@ -212,7 +212,7 @@
           "utilisation": 5
         }
       ],
-      "attaque": 20,
+      "attaque": 10,
       "defense": 25,
       "niveau": {
         "lvl": 1,
@@ -249,7 +249,7 @@
           "utilisation": 5
         }
       ],
-      "attaque": 20,
+      "attaque": 10,
       "defense": 10,
       "niveau": {
         "lvl": 1,
@@ -280,7 +280,7 @@
           "utilisation": 5
         }
       ],
-      "attaque": 20,
+      "attaque": 10,
       "defense": 8,
       "niveau": {
         "lvl": 1,
@@ -318,7 +318,7 @@
           "utilisation": 5
         }
       ],
-      "attaque": 20,
+      "attaque": 10,
       "defense": 10,
       "niveau": {
         "lvl": 1,
@@ -355,7 +355,7 @@
           "utilisation": 5
         }
       ],
-      "attaque": 20,
+      "attaque": 10,
       "defense": 9,
       "niveau": {
         "lvl": 1,
