@@ -1,9 +1,11 @@
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import consoleColors.ConsoleColors;
 
 public class Niveau {
     private Integer level;
     private Double experience;
+    private Double palier;
 
     public Niveau() {}
 
@@ -11,6 +13,7 @@ public class Niveau {
     public Niveau(@JsonProperty("lvl") Integer level, @JsonProperty("exp") Double experience) {
         this.level = level;
         this.experience = experience;
+        this.palier = ((4 * Math.pow((this.level + 1), 3) / 5) + 50);
     }
 
     public Integer getLevel() {
@@ -34,23 +37,24 @@ public class Niveau {
         this.experience = experience;
     }
 
+    public Double getPalier() {
+        return palier;
+    }
+
     public void calculNiveau(Double experience, Pokemon gagnant){
-        Pokemon pokemonGagnant = gagnant;
-        int niveau = pokemonGagnant.getNiveau().getLevel();
-        double calculPalierLvl = ((4 * Math.pow((niveau + 1), 3) / 5) + 50);
-        double experienceActuel = pokemonGagnant.getNiveau().getExperience();
-        if ((experienceActuel + experience) > calculPalierLvl) {
-            // revoir le calcul restant renvoi une valeur négative
-            double restant = experience - (calculPalierLvl - experienceActuel) ;
-            int levelUp = niveau + 1;
-            pokemonGagnant.getNiveau().setLevel(levelUp);
-            pokemonGagnant.getAttaque().progressionStatattaque(pokemonGagnant);
+        Niveau niveau = gagnant.getNiveau();
+        double experienceActuel = gagnant.getNiveau().getExperience();
+        if ((experienceActuel + experience) > niveau.getPalier()) {
+            double restant = experience - (niveau.getPalier() - experienceActuel) ;
+            int levelUp = niveau.getLevel() + 1;
+            gagnant.getNiveau().setLevel(levelUp);
+            gagnant.getAttaque().progressionStatattaque(gagnant);
             System.out.println("Level Up !" + " Niveau " + levelUp);
-            calculNiveau(restant, pokemonGagnant);
+            calculNiveau(restant, gagnant);
         } else {
             setExperience(experience);
-            System.out.println("Nivaux suivant dans -> " + Math.ceil(calculPalierLvl - experienceActuel) + " xp");
-            System.out.println(pokemonGagnant.getNiveau().getExperience());
+            afficherBarre(gagnant.getNiveau());
+            System.out.println(gagnant.getNiveau().getExperience());
         }
     }
 
@@ -71,6 +75,23 @@ public class Niveau {
         System.out.println(gagnant.getNom()+" à gagné : "+baseXp * multiplicateurType * multiplicateurNiveau + " xp !");
         double expGagner = (baseXp * multiplicateurType * multiplicateurNiveau);
         calculNiveau(expGagner, gagnant);
+    }
+
+    public void afficherBarre(Niveau niveau) {
+        int tailleBarre = 50;
+        double palier = niveau.getPalier();
+        int nbBlocs = (int) ((double) experience / palier * tailleBarre);
+        StringBuilder barre = new StringBuilder();
+        String colorNivPv = ConsoleColors.CYAN;
+
+        for (int i = 0; i < tailleBarre; i++) {
+            if (i < nbBlocs) {
+                barre.append("█");
+            } else {
+                barre.append("░");
+            }
+        }
+        System.out.printf("%-4s "+ colorNivPv +"[%s]"+ ConsoleColors.RESET +" %.2f / %.2f\n", "EXP", barre, experience, palier);
     }
 
 }

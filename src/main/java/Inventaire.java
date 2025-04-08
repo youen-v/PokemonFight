@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import consoleColors.ConsoleColors;
 
 public class Inventaire {
     private int stockageMin = 0;
@@ -15,14 +16,19 @@ public class Inventaire {
     }
 
     public void printListeItems(Pokemon pokemon) {
-        Scanner scanner = new Scanner(System.in);
-        for (int i=0; i<listeItems.size(); i++) {
-            System.out.println(i + ". " + listeItems.get(i));
+        if (!listeItems.isEmpty()) {
+            Scanner scanner = new Scanner(System.in);
+            for (int i=0; i<listeItems.size(); i++) {
+                System.out.println(i + ". " + listeItems.get(i));
+            }
+            System.out.println("Choix du l'objet d'inventaire: ");
+            int choixItem = scanner.nextInt();
+            Item item = listeItems.get(choixItem);
+            item.useItem(pokemon, item);
+        } else {
+            System.out.println(ConsoleColors.YELLOW +"Vous n'avez aucun objet de disponible" + ConsoleColors.RESET);
         }
-        System.out.println("Choix du l'objet d'inventaire: ");
-        int choixItem = scanner.nextInt();
-        Item item = listeItems.get(choixItem);
-        item.useItem(pokemon, item);
+
     }
 
     public void setItem(Item item) {
